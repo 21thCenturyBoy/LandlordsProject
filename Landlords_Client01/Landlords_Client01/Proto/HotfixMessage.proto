@@ -1,0 +1,149 @@
+syntax = "proto3";
+package ETModel;
+
+//测试向服务器发送消息
+message C2G_TestMessage  // IRequest
+{
+	int32 RpcId = 90;
+	string Info = 91;
+}
+//测试向服务器返回消息
+message G2C_TestMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//客户端登陆网关请求
+message A0003_LoginGate_C2G // IRequest
+{
+	int32 RpcId = 90;
+	int64 GateLoginKey = 1;
+}
+//客户端登陆网关返回
+message A0003_LoginGate_G2C // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 UserID = 1;
+}
+
+//客户端登陆认证请求
+message A0002_Login_C2R // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1; //假定的账号
+	string Password = 2; //假定的密码
+}
+//客户端登陆认证返回
+message A0002_Login_R2C // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string GateAddress = 1;
+	int64 GateLoginKey = 2;
+}
+
+//客户端注册请求
+message A0001_Register_C2R // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1; //假定的账号
+	string Password = 2; //假定的密码
+}
+
+//客户端注册请求回复
+message A0001_Register_R2C // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//ET----
+message C2R_Login // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	string	Password = 2;	// 密码
+}
+
+message R2C_Login // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Address = 1;
+	int64 Key	    = 2;
+}
+
+message C2G_LoginGate // IRequest
+{
+	int32 RpcId = 90;
+	int64 Key = 1;	// 帐号
+}
+
+message G2C_LoginGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 PlayerId = 1;
+}
+
+message G2C_TestHotfixMessage // IMessage
+{
+	string Info = 1;
+}
+
+message C2M_TestActorRequest // IActorLocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	string Info = 1;
+}
+
+message M2C_TestActorResponse // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Info = 1;
+}
+
+message PlayerInfo // IMessage
+{
+	int32 RpcId = 90;
+}
+
+message C2G_PlayerInfo // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_PlayerInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	PlayerInfo PlayerInfo = 1;
+	repeated PlayerInfo PlayerInfos = 2;
+    repeated string TestRepeatedString = 3;
+    repeated int32 TestRepeatedInt32 = 4;
+    repeated int64 TestRepeatedInt64 = 5;
+}
+
+message C2G_LoginGate_Req  // IRequest
+{
+	int32 RpcId = 90;
+	int64 Key = 1;
+}
+
+message G2C_LoginGate_Back // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 UserID = 1;
+}

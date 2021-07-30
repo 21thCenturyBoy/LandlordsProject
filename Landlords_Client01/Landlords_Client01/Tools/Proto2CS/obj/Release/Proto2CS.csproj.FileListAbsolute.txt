@@ -1,0 +1,11 @@
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Proto\Proto2CS.deps.json
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Proto\Proto2CS.runtimeconfig.json
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Proto\Proto2CS.runtimeconfig.dev.json
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Proto\Proto2CS.dll
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Proto\Proto2CS.pdb
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Tools\Proto2CS\obj\Release\Proto2CS.AssemblyInfoInputs.cache
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Tools\Proto2CS\obj\Release\Proto2CS.AssemblyInfo.cs
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Tools\Proto2CS\obj\Release\Proto2CS.csproj.CoreCompileInputs.cache
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Tools\Proto2CS\obj\Release\Proto2CS.dll
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Tools\Proto2CS\obj\Release\Proto2CS.pdb
+K:\Project\Git\ET\LandlordsProject\Landlords_Client01\Landlords_Client01\Tools\Proto2CS\obj\Release\Proto2CS.genruntimeconfig.cache
