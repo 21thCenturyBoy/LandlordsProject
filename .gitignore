@@ -457,3 +457,11 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
+
+Landlords_Server01/Landlords_Server01/Server/ET.Core/obj/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/KcpLib/obj/
+
+Landlords_Server01/Landlords_Server01/Server/Hotfix/obj/
+
+Landlords_Server01/Landlords_Server01/Server/App/obj/

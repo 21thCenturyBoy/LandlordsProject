@@ -2,14 +2,16 @@ syntax = "proto3";
 package ETModel;
 
 /// <summary>
-/// 斗地主内网消息
+/// 从Gate获取登录Key请求
 /// </summary>
 message A0006_GetLoginKey_R2G // IRequest
 {
 	int32 RpcId = 90;
 	int64 UserID = 1;
 }
-
+/// <summary>
+/// 从Gate获取登录Key响应
+/// </summary>
 message A0006_GetLoginKey_G2R // IResponse
 {
 	int32 RpcId = 90;

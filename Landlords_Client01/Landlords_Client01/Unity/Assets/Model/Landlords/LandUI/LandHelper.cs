@@ -62,6 +62,9 @@ namespace ETModel
 
             //加载透明界面 退出当前界面
             Game.EventSystem.Run(UIEventType.LandLoginFinish);
+
+            //加载大厅界面
+            Game.EventSystem.Run(UIEventType.LandInitLobby);
         }
 
         public static async ETVoid Register(string account, string password)

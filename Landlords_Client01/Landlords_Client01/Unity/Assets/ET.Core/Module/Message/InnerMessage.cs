@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace ETModel
 {
 /// <summary>
-/// 斗地主内网消息
+/// 从Gate获取登录Key请求
 /// </summary>
 	[Message(InnerOpcode.A0006_GetLoginKey_R2G)]
 	public partial class A0006_GetLoginKey_R2G: IRequest
@@ -14,6 +14,9 @@ namespace ETModel
 
 	}
 
+/// <summary>
+/// 从Gate获取登录Key响应
+/// </summary>
 	[Message(InnerOpcode.A0006_GetLoginKey_G2R)]
 	public partial class A0006_GetLoginKey_G2R: IResponse
 	{
