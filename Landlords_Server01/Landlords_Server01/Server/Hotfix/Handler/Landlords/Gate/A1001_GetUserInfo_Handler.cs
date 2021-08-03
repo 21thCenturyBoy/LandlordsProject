@@ -29,6 +29,10 @@ namespace ETHotfix
                 response.Money = userInfo.Money;
                 response.Level = userInfo.Level;
                 response.Title = userInfo.Title;
+                response.Phone = userInfo.Phone;
+                response.Email = userInfo.Email;
+                response.Sex = userInfo.Sex;
+
 
                 reply();
             }

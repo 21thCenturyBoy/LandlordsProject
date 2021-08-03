@@ -6,17 +6,23 @@ namespace ETModel
 
     public static partial class LandUIType
     {
+        //登录
         public const string LandLogin = "LandLogin";
+        //大厅
         public const string LandLobby = "LandLobby";
+        public const string SetUserInfo = "SetUserInfo";
     }
 
     public static partial class UIEventType
     {
         //斗地主EventIdType
+        //登录
         public const string LandInitSceneStart = "LandInitSceneStart";
         public const string LandLoginFinish = "LandLoginFinish";
+        //大厅
         public const string LandInitLobby = "LandInitLobby";
-
+        public const string LandInitSetUserInfo = "LandInitSetUserInfo";
+        public const string LandSetUserInfoFinish = "LandSetUserInfoFinish";
     }
 
     [Event(UIEventType.LandInitSceneStart)]
@@ -43,6 +49,26 @@ namespace ETModel
         public override void Run()
         {
             Game.Scene.GetComponent<UIComponent>().Create(LandUIType.LandLobby);
+        }
+    }
+    //初始设置用户信息事件方法
+    [Event(UIEventType.LandInitSetUserInfo)]
+    public class LandInitUserInfo_CreateSetUserInfo : AEvent
+    {
+        public override void Run()
+        {
+            Game.Scene.GetComponent<UIComponent>().Create(LandUIType.SetUserInfo);
+        }
+    }
+
+    //登录完成移除登录界面事件方法
+    [Event(UIEventType.LandSetUserInfoFinish)]
+    public class LandSetUserInfoFinish : AEvent
+    {
+        public override void Run()
+        {
+            Game.Scene.GetComponent<UIComponent>().Remove(LandUIType.SetUserInfo);
+
         }
     }
 }

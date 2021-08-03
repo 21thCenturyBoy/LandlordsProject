@@ -18,7 +18,6 @@ message A1001_GetUserInfo_C2G // IRequest
 {
 	int32 RpcId = 90;
 }
-
 //返回用户信息
 message A1001_GetUserInfo_G2C // IResponse
 {
@@ -29,6 +28,32 @@ message A1001_GetUserInfo_G2C // IResponse
 	int32 Level = 2;
 	int64 Money = 3;
 	string Title = 4;
+	int64 Phone = 5;
+	string Email = 6;
+	string Sex = 7;
+}
+//设置用户信息
+message A1002_SetUserInfo_C2G // IRequest
+{
+	int32 RpcId = 90;
+	int64 Phone = 1;
+	string Email = 2;
+	string Sex = 3;
+	string Title = 4;
+}
+//返回设置用户信息
+message A1002_SetUserInfo_G2C // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string UserName = 1;
+	int32 Level = 2;
+	int64 Money = 3;
+	string Title = 4;
+	int64 Phone = 5;
+	string Email = 6;
+	string Sex = 7;
 }
 //客户端登陆网关请求
 message A0003_LoginGate_C2G // IRequest
