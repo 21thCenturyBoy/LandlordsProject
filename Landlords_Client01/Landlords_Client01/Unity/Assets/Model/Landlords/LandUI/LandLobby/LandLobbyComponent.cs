@@ -25,8 +25,10 @@ namespace ETModel
         private Text name;
         //玩家金钱
         private Text money;
-        //玩家金钱
+        //玩家等级
         private Text level;
+        //玩家称号
+        private Text title;
 
         public bool isMatching;
 
@@ -38,6 +40,7 @@ namespace ETModel
             name = rc.Get<GameObject>("Name").GetComponent<Text>();
             money = rc.Get<GameObject>("Money").GetComponent<Text>();
             level = rc.Get<GameObject>("Level").GetComponent<Text>();
+            title = rc.Get<GameObject>("Title").GetComponent<Text>();
 
             //获取玩家数据
             A1001_GetUserInfo_C2G GetUserInfo_Req = new A1001_GetUserInfo_C2G();
@@ -47,7 +50,8 @@ namespace ETModel
             name.text = GetUserInfo_Ack.UserName;
             money.text = GetUserInfo_Ack.Money.ToString();
             level.text = GetUserInfo_Ack.Level.ToString();
-
+            title.text = GetUserInfo_Ack.Title.ToString();
+            Debug.Log(GetUserInfo_Ack.Title);
             //添加进入房间匹配事件
             //...
 

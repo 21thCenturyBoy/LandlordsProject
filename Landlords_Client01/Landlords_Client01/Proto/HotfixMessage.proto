@@ -28,6 +28,7 @@ message A1001_GetUserInfo_G2C // IResponse
 	string UserName = 1;
 	int32 Level = 2;
 	int64 Money = 3;
+	string Title = 4;
 }
 //客户端登陆网关请求
 message A0003_LoginGate_C2G // IRequest

@@ -268,6 +268,14 @@ namespace ETModel {
       }
     }
 
+    private string title_ = "";
+    public string Title {
+      get { return title_; }
+      set {
+        title_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     public void WriteTo(pb::CodedOutputStream output) {
       if (UserName.Length != 0) {
         output.WriteRawTag(10);
@@ -280,6 +288,10 @@ namespace ETModel {
       if (Money != 0L) {
         output.WriteRawTag(24);
         output.WriteInt64(Money);
+      }
+      if (Title.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Title);
       }
       if (RpcId != 0) {
         output.WriteRawTag(208, 5);
@@ -315,6 +327,9 @@ namespace ETModel {
       if (Money != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Money);
       }
+      if (Title.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
+      }
       return size;
     }
 
@@ -322,6 +337,7 @@ namespace ETModel {
       userName_ = "";
       level_ = 0;
       money_ = 0;
+      title_ = "";
       rpcId_ = 0;
       error_ = 0;
       message_ = "";
@@ -341,6 +357,10 @@ namespace ETModel {
           }
           case 24: {
             Money = input.ReadInt64();
+            break;
+          }
+          case 34: {
+            Title = input.ReadString();
             break;
           }
           case 720: {
