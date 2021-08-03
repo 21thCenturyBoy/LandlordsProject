@@ -465,3 +465,13 @@ Landlords_Server01/Landlords_Server01/Server/ThirdParty/KcpLib/obj/
 Landlords_Server01/Landlords_Server01/Server/Hotfix/obj/
 
 Landlords_Server01/Landlords_Server01/Server/App/obj/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/Google.Protobuf/obj/Debug/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Bson/obj/Debug/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Driver/obj/Debug/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Driver.Core/obj/Debug/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Driver.GridFS/obj/Debug/
