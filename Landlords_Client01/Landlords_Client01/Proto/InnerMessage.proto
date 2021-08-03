@@ -1,17 +1,27 @@
 syntax = "proto3";
 package ETModel;
 
-/// <summary>
-/// 从Gate获取登录Key请求
-/// </summary>
+//向realm用户发送上线消息
+message A0004_PlayerOnline_G2R // IMessage
+{
+	int32 RpcId = 90;
+	int64 UserID = 1;
+	int32 GateAppID = 2;
+}
+
+//向realm用户发送下线消息
+message A0005_PlayerOffline_G2R // IMessage
+{
+	int32 RpcId = 90;
+	int64 UserID = 1;
+}
+// 从Gate获取登录Key请求
 message A0006_GetLoginKey_R2G // IRequest
 {
 	int32 RpcId = 90;
 	int64 UserID = 1;
 }
-/// <summary>
-/// 从Gate获取登录Key响应
-/// </summary>
+// 从Gate获取登录Key响应
 message A0006_GetLoginKey_G2R // IResponse
 {
 	int32 RpcId = 90;
@@ -19,7 +29,19 @@ message A0006_GetLoginKey_G2R // IResponse
 	string Message = 92;
 	int64 GateLoginKey = 1;
 }
-
+//向Gate发出踢出玩家请求
+message	A0007_KickOutPlayer_R2G // IRequest
+{
+	int32 RpcId = 90;
+	int64 UserID = 1;
+}
+//向realm返回踢出玩家响应
+message	A0007_KickOutPlayer_G2R // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
 
 /// <summary>
 /// ET

@@ -2,9 +2,29 @@ using ETModel;
 using System.Collections.Generic;
 namespace ETModel
 {
-/// <summary>
-/// 从Gate获取登录Key请求
-/// </summary>
+//向realm用户发送上线消息
+	[Message(InnerOpcode.A0004_PlayerOnline_G2R)]
+	public partial class A0004_PlayerOnline_G2R: IMessage
+	{
+		public int RpcId { get; set; }
+
+		public long UserID { get; set; }
+
+		public int GateAppID { get; set; }
+
+	}
+
+//向realm用户发送下线消息
+	[Message(InnerOpcode.A0005_PlayerOffline_G2R)]
+	public partial class A0005_PlayerOffline_G2R: IMessage
+	{
+		public int RpcId { get; set; }
+
+		public long UserID { get; set; }
+
+	}
+
+// 从Gate获取登录Key请求
 	[Message(InnerOpcode.A0006_GetLoginKey_R2G)]
 	public partial class A0006_GetLoginKey_R2G: IRequest
 	{
@@ -14,9 +34,7 @@ namespace ETModel
 
 	}
 
-/// <summary>
-/// 从Gate获取登录Key响应
-/// </summary>
+// 从Gate获取登录Key响应
 	[Message(InnerOpcode.A0006_GetLoginKey_G2R)]
 	public partial class A0006_GetLoginKey_G2R: IResponse
 	{
@@ -27,6 +45,28 @@ namespace ETModel
 		public string Message { get; set; }
 
 		public long GateLoginKey { get; set; }
+
+	}
+
+//向Gate发出踢出玩家请求
+	[Message(InnerOpcode.A0007_KickOutPlayer_R2G)]
+	public partial class A0007_KickOutPlayer_R2G: IRequest
+	{
+		public int RpcId { get; set; }
+
+		public long UserID { get; set; }
+
+	}
+
+//向realm返回踢出玩家响应
+	[Message(InnerOpcode.A0007_KickOutPlayer_G2R)]
+	public partial class A0007_KickOutPlayer_G2R: IResponse
+	{
+		public int RpcId { get; set; }
+
+		public int Error { get; set; }
+
+		public string Message { get; set; }
 
 	}
 

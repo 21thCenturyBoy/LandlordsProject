@@ -75,7 +75,10 @@ namespace App
 				Game.Scene.AddComponent<NetInnerComponent, string>(innerConfig.Address);
 				// 外网消息组件
 				Game.Scene.AddComponent<NetOuterComponent, string>(outerConfig.Address);
-				
+
+                //在线管理组件
+                Game.Scene.AddComponent<OnlineComponent>();
+
 				// manager server组件，用来管理其它进程使用
 				Game.Scene.AddComponent<AppManagerComponent>();
 				Game.Scene.AddComponent<RealmGateAddressComponent>();

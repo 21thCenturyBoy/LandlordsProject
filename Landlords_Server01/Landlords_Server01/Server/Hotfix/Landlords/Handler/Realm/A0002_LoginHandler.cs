@@ -24,7 +24,9 @@ namespace ETHotfix
                     return;
                 }
 
+                //已验证通过，可能存在其它地方有登录，要先踢下线
                 AccountInfo account = (AccountInfo)result[0];
+                await RealmHelper.KickOutPlayer(account.Id);
 
                 int GateAppId;
                 StartConfig config;
