@@ -78,6 +78,8 @@ namespace App
 
                 //在线管理组件
                 Game.Scene.AddComponent<OnlineComponent>();
+                //斗地主匹配组件
+                Game.Scene.AddComponent<LandMatchComponent>();
 
 				// manager server组件，用来管理其它进程使用
 				Game.Scene.AddComponent<AppManagerComponent>();

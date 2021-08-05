@@ -27,14 +27,15 @@ namespace ETModel
                 //添加组件
                 Game.Scene.AddComponent<GlobalConfigComponent>();//web资源服务器设置组件
                 Game.Scene.AddComponent<ResourcesComponent>();//资源加载组件
+                Game.Scene.AddComponent<TimerComponent>();
 
-                //测试输出正确加载Config所带的信息
-                ETModel.Game.Scene.GetComponent<ResourcesComponent>().LoadBundle("config.unity3d");
-                Game.Scene.AddComponent<ConfigComponent>();
-                ETModel.Game.Scene.GetComponent<ResourcesComponent>().UnloadBundle("config.unity3d");
+                ////测试输出正确加载Config所带的信息
+                //ETModel.Game.Scene.GetComponent<ResourcesComponent>().LoadBundle("config.unity3d");
+                //Game.Scene.AddComponent<ConfigComponent>();
+                //ETModel.Game.Scene.GetComponent<ResourcesComponent>().UnloadBundle("config.unity3d");
 
-                UnitConfig unitConfig = (UnitConfig)Game.Scene.GetComponent<ConfigComponent>().Get(typeof(UnitConfig), 1001);
-                Log.Debug($"config {JsonHelper.ToJson(unitConfig)}");
+                //UnitConfig unitConfig = (UnitConfig)Game.Scene.GetComponent<ConfigComponent>().Get(typeof(UnitConfig), 1001);
+                //Log.Debug($"config {JsonHelper.ToJson(unitConfig)}");
 
                 #region Example
 
@@ -55,28 +56,25 @@ namespace ETModel
                 //Session session = Game.Scene.GetComponent<NetOuterComponent>().Create(GlobalConfigComponent.Instance.GlobalProto.Address);
                 //G2C_TestMessage g2CTestMessage = (G2C_TestMessage) await session.Call(new C2G_TestMessage() { Info = "==>>服务端的朋友,你好!收到请回答" });
 
-                ////下载AB包
-                //await BundleHelper.DownloadBundle();
-                //Game.EventSystem.Load();
-
                 #endregion
 
                 //添加UI组件
                 Game.Scene.AddComponent<UIComponent>();
-
                 Game.Scene.AddComponent<GamerComponent>();
-                //加上消息分发组件MessageDispatcherComponent
-                Game.Scene.AddComponent<MessageDispatcherComponent>();
 
-
-                //执行斗地主初始事件，也就是创建LandLogin界面
-                Game.EventSystem.Run(UIEventType.LandInitSceneStart);
 
                 //添加指令与网络组件
                 Game.Scene.AddComponent<OpcodeTypeComponent>();
+                //加上消息分发组件MessageDispatcherComponent
+                Game.Scene.AddComponent<MessageDispatcherComponent>();
                 Game.Scene.AddComponent<NetOuterComponent>();
 
+                //下载AB包
+                await BundleHelper.DownloadBundle();
+                Game.EventSystem.Load();
 
+                //执行斗地主初始事件，也就是创建LandLogin界面
+                Game.EventSystem.Run(UIEventType.LandInitSceneStart);
 
 
             }

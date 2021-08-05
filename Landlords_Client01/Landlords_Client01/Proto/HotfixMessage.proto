@@ -13,6 +13,56 @@ message G2C_TestMessage // IResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+//==>匹配玩家并进入斗地主游戏房间 -------------------------------------------
+//玩家信息
+message GamerInfo
+{
+	int64 UserID = 1; //玩家ID
+}
+//返回大厅
+message C2G_ReturnLobby_Ntt // IMessage
+{
+	int32 RpcId = 90;
+}
+//斗地主匹配模块
+message C2G_StartMatch_Req // IRequest
+{
+	int32 RpcId = 90;
+}
+message G2C_StartMatch_Back // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message Actor_LandMatcherPlusOne_NTT // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 MatchingNumber = 1; // 当前排队人数
+}
+message Actor_LandMatcherReduceOne_NTT // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 MatchingNumber = 1; // 当前排队人数
+}
+
+//进入房间(广播)
+message Actor_GamerEnterRoom_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    repeated GamerInfo Gamers = 1;
+}
+//退出房间(广播)
+message Actor_GamerExitRoom_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int64 UserID = 1;
+}
+//匹配玩家并进入斗地主游戏房间 <==-------------------------------------------
 //获取用户信息
 message A1001_GetUserInfo_C2G // IRequest
 {

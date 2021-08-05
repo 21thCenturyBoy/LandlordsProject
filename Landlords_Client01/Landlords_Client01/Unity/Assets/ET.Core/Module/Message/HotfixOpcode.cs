@@ -9,6 +9,37 @@ namespace ETModel
 	[Message(HotfixOpcode.G2C_TestMessage)]
 	public partial class G2C_TestMessage : IResponse {}
 
+//==>匹配玩家并进入斗地主游戏房间 -------------------------------------------
+//玩家信息
+	[Message(HotfixOpcode.GamerInfo)]
+	public partial class GamerInfo {}
+
+//返回大厅
+	[Message(HotfixOpcode.C2G_ReturnLobby_Ntt)]
+	public partial class C2G_ReturnLobby_Ntt : IMessage {}
+
+//斗地主匹配模块
+	[Message(HotfixOpcode.C2G_StartMatch_Req)]
+	public partial class C2G_StartMatch_Req : IRequest {}
+
+	[Message(HotfixOpcode.G2C_StartMatch_Back)]
+	public partial class G2C_StartMatch_Back : IResponse {}
+
+	[Message(HotfixOpcode.Actor_LandMatcherPlusOne_NTT)]
+	public partial class Actor_LandMatcherPlusOne_NTT : IActorMessage {}
+
+	[Message(HotfixOpcode.Actor_LandMatcherReduceOne_NTT)]
+	public partial class Actor_LandMatcherReduceOne_NTT : IActorMessage {}
+
+//进入房间(广播)
+	[Message(HotfixOpcode.Actor_GamerEnterRoom_Ntt)]
+	public partial class Actor_GamerEnterRoom_Ntt : IActorMessage {}
+
+//退出房间(广播)
+	[Message(HotfixOpcode.Actor_GamerExitRoom_Ntt)]
+	public partial class Actor_GamerExitRoom_Ntt : IActorMessage {}
+
+//匹配玩家并进入斗地主游戏房间 <==-------------------------------------------
 //获取用户信息
 	[Message(HotfixOpcode.A1001_GetUserInfo_C2G)]
 	public partial class A1001_GetUserInfo_C2G : IRequest {}
@@ -93,27 +124,35 @@ namespace ETModel
 	{
 		 public const ushort C2G_TestMessage = 10001;
 		 public const ushort G2C_TestMessage = 10002;
-		 public const ushort A1001_GetUserInfo_C2G = 10003;
-		 public const ushort A1001_GetUserInfo_G2C = 10004;
-		 public const ushort A1002_SetUserInfo_C2G = 10005;
-		 public const ushort A1002_SetUserInfo_G2C = 10006;
-		 public const ushort A0003_LoginGate_C2G = 10007;
-		 public const ushort A0003_LoginGate_G2C = 10008;
-		 public const ushort A0002_Login_C2R = 10009;
-		 public const ushort A0002_Login_R2C = 10010;
-		 public const ushort A0001_Register_C2R = 10011;
-		 public const ushort A0001_Register_R2C = 10012;
-		 public const ushort C2R_Login = 10013;
-		 public const ushort R2C_Login = 10014;
-		 public const ushort C2G_LoginGate = 10015;
-		 public const ushort G2C_LoginGate = 10016;
-		 public const ushort G2C_TestHotfixMessage = 10017;
-		 public const ushort C2M_TestActorRequest = 10018;
-		 public const ushort M2C_TestActorResponse = 10019;
-		 public const ushort PlayerInfo = 10020;
-		 public const ushort C2G_PlayerInfo = 10021;
-		 public const ushort G2C_PlayerInfo = 10022;
-		 public const ushort C2G_LoginGate_Req = 10023;
-		 public const ushort G2C_LoginGate_Back = 10024;
+		 public const ushort GamerInfo = 10003;
+		 public const ushort C2G_ReturnLobby_Ntt = 10004;
+		 public const ushort C2G_StartMatch_Req = 10005;
+		 public const ushort G2C_StartMatch_Back = 10006;
+		 public const ushort Actor_LandMatcherPlusOne_NTT = 10007;
+		 public const ushort Actor_LandMatcherReduceOne_NTT = 10008;
+		 public const ushort Actor_GamerEnterRoom_Ntt = 10009;
+		 public const ushort Actor_GamerExitRoom_Ntt = 10010;
+		 public const ushort A1001_GetUserInfo_C2G = 10011;
+		 public const ushort A1001_GetUserInfo_G2C = 10012;
+		 public const ushort A1002_SetUserInfo_C2G = 10013;
+		 public const ushort A1002_SetUserInfo_G2C = 10014;
+		 public const ushort A0003_LoginGate_C2G = 10015;
+		 public const ushort A0003_LoginGate_G2C = 10016;
+		 public const ushort A0002_Login_C2R = 10017;
+		 public const ushort A0002_Login_R2C = 10018;
+		 public const ushort A0001_Register_C2R = 10019;
+		 public const ushort A0001_Register_R2C = 10020;
+		 public const ushort C2R_Login = 10021;
+		 public const ushort R2C_Login = 10022;
+		 public const ushort C2G_LoginGate = 10023;
+		 public const ushort G2C_LoginGate = 10024;
+		 public const ushort G2C_TestHotfixMessage = 10025;
+		 public const ushort C2M_TestActorRequest = 10026;
+		 public const ushort M2C_TestActorResponse = 10027;
+		 public const ushort PlayerInfo = 10028;
+		 public const ushort C2G_PlayerInfo = 10029;
+		 public const ushort G2C_PlayerInfo = 10030;
+		 public const ushort C2G_LoginGate_Req = 10031;
+		 public const ushort G2C_LoginGate_Back = 10032;
 	}
 }

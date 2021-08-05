@@ -1,6 +1,22 @@
 syntax = "proto3";
 package ETModel;
+//==>匹配玩家并进入斗地主游戏房间 -------------------------------------
+//Map通知Gate匹配成功
+message Actor_MatchSucess_M2G // IActorMessage
+{
+	int64 ActorId = 94;
+	int64 GamerID = 1;
+}
 
+//Gate通知Map 玩家请求匹配
+message EnterMatchs_G2M // IMessage
+{
+	int32 RpcId = 90;
+	int64 UserID = 1; //Gate上User的UserID
+	int64 GActorID = 2; //Gate上User的InstanceId
+	int64 CActorID = 3; //Gate上User的GateSessionID
+}
+//匹配玩家并进入斗地主游戏房间 <== -------------------------------------
 //向realm用户发送上线消息
 message A0004_PlayerOnline_G2R // IMessage
 {

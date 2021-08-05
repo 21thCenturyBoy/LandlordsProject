@@ -21,9 +21,16 @@ namespace ETModel
         public long UserID { get; private set; }
 
         /// <summary>
-        /// 玩家GateActorID
+        /// 玩家GateActorID，向网关通信
+        /// gate user's InstanceId
         /// </summary>
         public long GActorID { get; set; }
+
+        /// <summary>
+        /// 玩家ClientActorID，向客户端通信
+        /// gate user's GateSessionID)
+        /// </summary>
+        public long CActorID { get; set; }
 
         /// <summary>
         /// 默认为假 Session断开/离开房间时触发离线
@@ -46,6 +53,7 @@ namespace ETModel
 
             this.UserID = 0;
             this.GActorID = 0;
+            this.CActorID = 0;
             this.isOffline = false;
         }
     }

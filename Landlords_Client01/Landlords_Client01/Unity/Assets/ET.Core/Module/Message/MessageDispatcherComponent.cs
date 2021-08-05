@@ -14,6 +14,7 @@ namespace ETModel
 #else
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ETModel
 {
@@ -69,7 +70,7 @@ namespace ETModel
 				}
 
 				Type messageType = iMHandler.GetMessageType();
-				ushort opcode = this.Entity.GetComponent<OpcodeTypeComponent>().GetOpcode(messageType);
+                ushort opcode = this.Entity.GetComponent<OpcodeTypeComponent>().GetOpcode(messageType);
 				if (opcode == 0)
 				{
 					Log.Error($"消息opcode为0: {messageType.Name}");

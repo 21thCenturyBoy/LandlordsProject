@@ -11,6 +11,8 @@ namespace ETModel
         //大厅
         public const string LandLobby = "LandLobby";
         public const string SetUserInfo = "SetUserInfo";
+        //房间
+        public const string LandRoom = "LandRoom";
     }
 
     public static partial class UIEventType
