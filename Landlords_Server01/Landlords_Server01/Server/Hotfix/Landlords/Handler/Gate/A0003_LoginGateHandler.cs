@@ -39,9 +39,12 @@ namespace ETHotfix
                 session.AddComponent<SessionUserComponent>().User = user;
                 session.AddComponent<MailBoxComponent, string>(MailboxType.GateSession);
 
-                StartConfigComponent config = Game.Scene.GetComponent<StartConfigComponent>();
                 //构建realmSession通知Realm服务器 玩家已上线
-                //...
+                StartConfigComponent config = Game.Scene.GetComponent<StartConfigComponent>();
+                IPEndPoint realmIPEndPoint = config.RealmConfig.GetComponent<InnerConfig>().IPEndPoint;
+                Session realmSession = Game.Scene.GetComponent<NetInnerComponent>().Get(realmIPEndPoint);
+                //2个参数 1：UserID 2：GateAppID
+                realmSession.Send(new A0004_PlayerOnline_G2R() { UserID = user.UserID, GateAppID = config.StartConfig.AppId });
 
                 //设置User的参数
                 user.GateAppID = config.StartConfig.AppId;

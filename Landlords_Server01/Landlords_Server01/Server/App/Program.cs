@@ -75,12 +75,7 @@ namespace App
 				Game.Scene.AddComponent<NetInnerComponent, string>(innerConfig.Address);
 				// 外网消息组件
 				Game.Scene.AddComponent<NetOuterComponent, string>(outerConfig.Address);
-
-                //在线管理组件
-                Game.Scene.AddComponent<OnlineComponent>();
-                //斗地主匹配组件
-                Game.Scene.AddComponent<LandMatchComponent>();
-
+				
 				// manager server组件，用来管理其它进程使用
 				Game.Scene.AddComponent<AppManagerComponent>();
 				Game.Scene.AddComponent<RealmGateAddressComponent>();
@@ -91,6 +86,11 @@ namespace App
 				// 配置管理
 				Game.Scene.AddComponent<ConfigComponent>();
 				Game.Scene.AddComponent<ConsoleComponent>();
+
+                //在线管理组件
+                Game.Scene.AddComponent<OnlineComponent>();
+                //斗地主匹配组件
+                Game.Scene.AddComponent<LandMatchComponent>();
 
 				while (true)
 				{

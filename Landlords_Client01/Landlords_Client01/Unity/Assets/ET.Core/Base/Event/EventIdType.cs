@@ -1,6 +1,6 @@
 ﻿namespace ETModel
 {
-	public static class EventIdType
+	public static  class EventIdType
 	{
 		public const string RecvHotfixMessage = "RecvHotfixMessage";
 		public const string BehaviorTreeRunTreeEvent = "BehaviorTreeRunTreeEvent";
@@ -23,8 +23,7 @@
 		public const string TestHotfixSubscribMonoEvent = "TestHotfixSubscribMonoEvent";
 		public const string MaxModelEvent = "MaxModelEvent";
 
-		public const string InitSceneStart = "InitSceneStart";
-		public const string LoginFinish = "LoginFinish";
-		public const string EnterMapFinish = "EnterMapFinish";
+		//自定义
+        public const string SessionDispose = "SessionDispose";
 	}
 }

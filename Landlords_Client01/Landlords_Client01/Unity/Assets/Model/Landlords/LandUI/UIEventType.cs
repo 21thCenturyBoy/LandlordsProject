@@ -13,6 +13,8 @@ namespace ETModel
         public const string SetUserInfo = "SetUserInfo";
         //房间
         public const string LandRoom = "LandRoom";
+        //提示
+        public const string LandTip = "LandTip";
     }
 
     public static partial class UIEventType
@@ -25,6 +27,8 @@ namespace ETModel
         public const string LandInitLobby = "LandInitLobby";
         public const string LandInitSetUserInfo = "LandInitSetUserInfo";
         public const string LandSetUserInfoFinish = "LandSetUserInfoFinish";
+        //断开链接
+        public const string LandOpenTip = "LandOpenTip";
     }
 
     [Event(UIEventType.LandInitSceneStart)]
@@ -62,7 +66,6 @@ namespace ETModel
             Game.Scene.GetComponent<UIComponent>().Create(LandUIType.SetUserInfo);
         }
     }
-
     //登录完成移除登录界面事件方法
     [Event(UIEventType.LandSetUserInfoFinish)]
     public class LandSetUserInfoFinish : AEvent
@@ -71,6 +74,17 @@ namespace ETModel
         {
             Game.Scene.GetComponent<UIComponent>().Remove(LandUIType.SetUserInfo);
 
+        }
+    }
+
+    //登录完成移除登录界面事件方法
+    [Event(UIEventType.LandOpenTip)]
+    public class LandOpenTip : AEvent<string>
+    {
+        public override void Run(string info)
+        {
+            UI tip = Game.Scene.GetComponent<UIComponent>().Create(LandUIType.LandTip);
+            tip.GetComponent<LandTipComponent>().prompt.text = info;
         }
     }
 }

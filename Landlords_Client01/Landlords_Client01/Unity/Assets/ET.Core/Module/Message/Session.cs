@@ -79,8 +79,9 @@ namespace ETModel
 			int error = this.channel.Error;
 			if (this.channel.Error != 0)
 			{
-				//TODO 断线处理
-				Log.Info($"session dispose: {this.Id} ErrorCode: {error}, please see ErrorCode.cs!");
+                Log.Info($"session dispose: {this.Id} ErrorCode: {error}, please see ErrorCode.cs!");
+                //TODO 断线处理
+				Game.EventSystem.Run(EventIdType.SessionDispose,error);
             }
 			
 			this.channel.Dispose();
