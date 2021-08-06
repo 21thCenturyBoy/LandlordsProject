@@ -1,6 +1,23 @@
 syntax = "proto3";
 package ETModel;
 
+//获取房间内玩家信息请求
+message C2G_GetUserInfoInRoom_Req // IRequest
+{
+	int32 RpcId = 90;
+	int64 UserID = 1;
+}
+//获取房间内玩家信息返回
+message G2C_GetUserInfoInRoom_Back // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string NickName = 1;
+	int32 Wins = 2;
+	int32 Loses = 3;
+	int64 Money = 4;
+}
 //----ET
 message Actor_Test // IActorMessage
 {

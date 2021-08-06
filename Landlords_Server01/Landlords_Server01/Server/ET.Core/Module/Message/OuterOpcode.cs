@@ -1,6 +1,14 @@
 using ETModel;
 namespace ETModel
 {
+//获取房间内玩家信息请求
+	[Message(OuterOpcode.C2G_GetUserInfoInRoom_Req)]
+	public partial class C2G_GetUserInfoInRoom_Req : IRequest {}
+
+//获取房间内玩家信息返回
+	[Message(OuterOpcode.G2C_GetUserInfoInRoom_Back)]
+	public partial class G2C_GetUserInfoInRoom_Back : IResponse {}
+
 //----ET
 	[Message(OuterOpcode.Actor_Test)]
 	public partial class Actor_Test : IActorMessage {}
@@ -55,21 +63,23 @@ namespace ETModel
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort Actor_Test = 101;
-		 public const ushort C2M_TestRequest = 102;
-		 public const ushort M2C_TestResponse = 103;
-		 public const ushort Actor_TransferRequest = 104;
-		 public const ushort Actor_TransferResponse = 105;
-		 public const ushort C2G_EnterMap = 106;
-		 public const ushort G2C_EnterMap = 107;
-		 public const ushort UnitInfo = 108;
-		 public const ushort M2C_CreateUnits = 109;
-		 public const ushort Frame_ClickMap = 110;
-		 public const ushort M2C_PathfindingResult = 111;
-		 public const ushort C2R_Ping = 112;
-		 public const ushort R2C_Ping = 113;
-		 public const ushort G2C_Test = 114;
-		 public const ushort C2M_Reload = 115;
-		 public const ushort M2C_Reload = 116;
+		 public const ushort C2G_GetUserInfoInRoom_Req = 101;
+		 public const ushort G2C_GetUserInfoInRoom_Back = 102;
+		 public const ushort Actor_Test = 103;
+		 public const ushort C2M_TestRequest = 104;
+		 public const ushort M2C_TestResponse = 105;
+		 public const ushort Actor_TransferRequest = 106;
+		 public const ushort Actor_TransferResponse = 107;
+		 public const ushort C2G_EnterMap = 108;
+		 public const ushort G2C_EnterMap = 109;
+		 public const ushort UnitInfo = 110;
+		 public const ushort M2C_CreateUnits = 111;
+		 public const ushort Frame_ClickMap = 112;
+		 public const ushort M2C_PathfindingResult = 113;
+		 public const ushort C2R_Ping = 114;
+		 public const ushort R2C_Ping = 115;
+		 public const ushort G2C_Test = 116;
+		 public const ushort C2M_Reload = 117;
+		 public const ushort M2C_Reload = 118;
 	}
 }
