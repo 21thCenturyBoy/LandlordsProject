@@ -91,6 +91,18 @@ namespace ETModel
 
 	}
 
+//Map通知Gate匹配成功
+	[Message(InnerOpcode.MatchSucess_M2G)]
+	public partial class MatchSucess_M2G: IMessage
+	{
+		public int RpcId { get; set; }
+
+		public long UserID { get; set; }
+
+		public long GamerID { get; set; }
+
+	}
+
 //Gate通知Map 玩家请求匹配
 	[Message(InnerOpcode.EnterMatchs_G2M)]
 	public partial class EnterMatchs_G2M: IMessage

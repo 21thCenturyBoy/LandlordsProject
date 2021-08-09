@@ -54,7 +54,13 @@ message Actor_MatchSucess_M2G // IActorMessage
 	int64 ActorId = 94;
 	int64 GamerID = 1;
 }
-
+//Map通知Gate匹配成功
+message MatchSucess_M2G // IMessage
+{
+	int32 RpcId = 90;
+	int64 UserID = 1;
+	int64 GamerID = 1;
+}
 //Gate通知Map 玩家请求匹配
 message EnterMatchs_G2M // IMessage
 {

@@ -124,9 +124,12 @@ namespace ETHotfix
             //广播房间内玩家消息 每次有人进入房间都会收到一次广播
             room.Broadcast(broadcastMessage);
 
-            //向Gate上的User发送匹配成功 
-            ActorMessageSender actorProxy = Game.Scene.GetComponent<ActorMessageSenderComponent>().Get(gamer.GActorID);
-            actorProxy.Send(new Actor_MatchSucess_M2G() { GamerID = gamer.InstanceId });
+            ////向Gate上的User发送匹配成功 
+            //ActorMessageSender actorProxy = Game.Scene.GetComponent<ActorMessageSenderComponent>().Get(gamer.GActorID);
+            //actorProxy.Send(new Actor_MatchSucess_M2G() { GamerID = gamer.InstanceId });
+            //改成使用Session，向Gate上的User发送匹配成功 
+            Session GetGateSession = MapHelper.GetGateSession();
+            GetGateSession.Send(new MatchSucess_M2G() { UserID = gamer.UserID, GamerID = gamer.InstanceId });
         }
 
 
