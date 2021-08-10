@@ -35,6 +35,7 @@ namespace ETModel
             GameObject quitButton = rc.Get<GameObject>("Quit");
             GameObject readyButton = rc.Get<GameObject>("Ready");
             prompt = rc.Get<GameObject>("MatchPrompt").GetComponent<Text>();
+            multiples = rc.Get<GameObject>("Multiples").GetComponent<Text>();
 
             readyButton.SetActive(false); //默认隐藏
             Matching = true; //进入房间后取消匹配状态
@@ -109,10 +110,21 @@ namespace ETModel
 
         private void OnReady()
         {
-            //发送准备
-            //SessionComponent.Instance.Session.Send(new Actor_GamerReady_Landlords());
+            //发送准备游戏的Actor_GamerReady_Landlords消息
+            //由客户端与网关的连接session发送，再转到Map服务
+            SessionComponent.Instance.Session.Send(new Actor_GamerReady_Landlords());
+        }
+        public void SetMultiples(int multiples)
+        {
+            this.multiples.gameObject.SetActive(true);
+            this.multiples.text = multiples.ToString();
         }
 
+        public void ResetMultiples()
+        {
+            this.multiples.gameObject.SetActive(false);
+            this.multiples.text = "1";
+        }
         public override void Dispose()
         {
             if (this.IsDisposed)

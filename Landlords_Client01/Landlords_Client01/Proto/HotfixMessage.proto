@@ -13,6 +13,13 @@ message G2C_TestMessage // IResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+//准备游戏消息
+message Actor_GamerReady_Landlords // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UserID = 1;
+}
 //==>匹配玩家并进入斗地主游戏房间 -------------------------------------------
 //玩家信息
 message GamerInfo

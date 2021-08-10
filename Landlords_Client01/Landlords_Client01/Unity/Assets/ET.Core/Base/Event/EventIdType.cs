@@ -25,5 +25,7 @@
 
 		//自定义
         public const string SessionDispose = "SessionDispose";
+        public const string SelectHandCard = "SelectHandCard";
+        public const string CancelHandCard = "CancelHandCard";
 	}
 }

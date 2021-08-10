@@ -1,6 +1,25 @@
 syntax = "proto3";
 package ETModel;
-
+//牌类消息
+message Card
+{
+	int32 CardWeight = 1;
+	int32 CardSuits = 2;
+}
+//牌分值消息
+message GamerCardNum
+{
+    int64 UserID = 1;
+    int32 Num = 2;
+}
+//游戏开始玩家手牌消息
+message Actor_GameStartHandCards_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    repeated Card HandCards = 1;
+    repeated GamerCardNum GamersCardNum = 2;
+}
 //获取房间内玩家信息请求
 message C2G_GetUserInfoInRoom_Req // IRequest
 {

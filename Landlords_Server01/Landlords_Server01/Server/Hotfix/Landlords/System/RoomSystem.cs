@@ -47,10 +47,18 @@ namespace ETHotfix
             }
 
             //添加开始斗地主游戏需要的组件
-            //...
+            //牌库组件
+            self.AddComponent<DeckComponent>();
+            //游戏控制组件
+            self.AddComponent<GameControllerComponent, RoomConfig>(GateHelper.GetLandlordsConfig(RoomLevel.Lv100));
+
+            //手牌缓存组件
+            //self.AddComponent<DeskCardsCacheComponent>();
+            //出牌控制组件
+            //self.AddComponent<OrderControllerComponent>();
 
             //开始游戏
-            //self.GetComponent<GameControllerComponent>().StartGame();
+            self.GetComponent<GameControllerComponent>().StartGame();
         }
 
         /// <summary>

@@ -29,10 +29,12 @@ namespace ETModel
                 Game.Scene.AddComponent<ResourcesComponent>();//资源加载组件
                 Game.Scene.AddComponent<TimerComponent>();
 
-                ////测试输出正确加载Config所带的信息
-                //ETModel.Game.Scene.GetComponent<ResourcesComponent>().LoadBundle("config.unity3d");
-                //Game.Scene.AddComponent<ConfigComponent>();
-                //ETModel.Game.Scene.GetComponent<ResourcesComponent>().UnloadBundle("config.unity3d");
+                //下载AB包
+                await BundleHelper.DownloadBundle();
+                //测试输出正确加载Config所带的信息
+                ETModel.Game.Scene.GetComponent<ResourcesComponent>().LoadBundle("config.unity3d");
+                Game.Scene.AddComponent<ConfigComponent>();
+                ETModel.Game.Scene.GetComponent<ResourcesComponent>().UnloadBundle("config.unity3d");
 
                 //UnitConfig unitConfig = (UnitConfig)Game.Scene.GetComponent<ConfigComponent>().Get(typeof(UnitConfig), 1001);
                 //Log.Debug($"config {JsonHelper.ToJson(unitConfig)}");
@@ -69,8 +71,7 @@ namespace ETModel
                 Game.Scene.AddComponent<MessageDispatcherComponent>();
                 Game.Scene.AddComponent<NetOuterComponent>();
 
-                //下载AB包
-                await BundleHelper.DownloadBundle();
+
                 Game.EventSystem.Load();
 
                 //执行斗地主初始事件，也就是创建LandLogin界面
