@@ -1,6 +1,41 @@
 using ETModel;
 namespace ETModel
 {
+	[Message(OuterOpcode.Actor_AuthorityPlayCard_Ntt)]
+	public partial class Actor_AuthorityPlayCard_Ntt : IActorMessage {}
+
+	[Message(OuterOpcode.Actor_SetMultiples_Ntt)]
+	public partial class Actor_SetMultiples_Ntt : IActorMessage {}
+
+//游戏交互操控消息=====>
+	[Message(OuterOpcode.Actor_GamerPlayCard_Req)]
+	public partial class Actor_GamerPlayCard_Req : IActorRequest {}
+
+	[Message(OuterOpcode.Actor_GamerPlayCard_Back)]
+	public partial class Actor_GamerPlayCard_Back : IActorResponse {}
+
+	[Message(OuterOpcode.Actor_GamerDontPlayCard_Ntt)]
+	public partial class Actor_GamerDontPlayCard_Ntt : IActorMessage {}
+
+	[Message(OuterOpcode.Actor_GamerPrompt_Req)]
+	public partial class Actor_GamerPrompt_Req : IActorRequest {}
+
+	[Message(OuterOpcode.Actor_GamerPrompt_Back)]
+	public partial class Actor_GamerPrompt_Back : IActorResponse {}
+
+//开始抢地主消息
+	[Message(OuterOpcode.Actor_AuthorityGrabLandlord_Ntt)]
+	public partial class Actor_AuthorityGrabLandlord_Ntt : IActorMessage {}
+
+//选择抢地方消息
+	[Message(OuterOpcode.Actor_GamerGrabLandlordSelect_Ntt)]
+	public partial class Actor_GamerGrabLandlordSelect_Ntt : IActorMessage {}
+
+//设置地主消息
+	[Message(OuterOpcode.Actor_SetLandlord_Ntt)]
+	public partial class Actor_SetLandlord_Ntt : IActorMessage {}
+
+//游戏交互操控消息<=====
 //牌类消息
 	[Message(OuterOpcode.Card)]
 	public partial class Card {}
@@ -75,26 +110,36 @@ namespace ETModel
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort Card = 101;
-		 public const ushort GamerCardNum = 102;
-		 public const ushort Actor_GameStartHandCards_Ntt = 103;
-		 public const ushort C2G_GetUserInfoInRoom_Req = 104;
-		 public const ushort G2C_GetUserInfoInRoom_Back = 105;
-		 public const ushort Actor_Test = 106;
-		 public const ushort C2M_TestRequest = 107;
-		 public const ushort M2C_TestResponse = 108;
-		 public const ushort Actor_TransferRequest = 109;
-		 public const ushort Actor_TransferResponse = 110;
-		 public const ushort C2G_EnterMap = 111;
-		 public const ushort G2C_EnterMap = 112;
-		 public const ushort UnitInfo = 113;
-		 public const ushort M2C_CreateUnits = 114;
-		 public const ushort Frame_ClickMap = 115;
-		 public const ushort M2C_PathfindingResult = 116;
-		 public const ushort C2R_Ping = 117;
-		 public const ushort R2C_Ping = 118;
-		 public const ushort G2C_Test = 119;
-		 public const ushort C2M_Reload = 120;
-		 public const ushort M2C_Reload = 121;
+		 public const ushort Actor_AuthorityPlayCard_Ntt = 101;
+		 public const ushort Actor_SetMultiples_Ntt = 102;
+		 public const ushort Actor_GamerPlayCard_Req = 103;
+		 public const ushort Actor_GamerPlayCard_Back = 104;
+		 public const ushort Actor_GamerDontPlayCard_Ntt = 105;
+		 public const ushort Actor_GamerPrompt_Req = 106;
+		 public const ushort Actor_GamerPrompt_Back = 107;
+		 public const ushort Actor_AuthorityGrabLandlord_Ntt = 108;
+		 public const ushort Actor_GamerGrabLandlordSelect_Ntt = 109;
+		 public const ushort Actor_SetLandlord_Ntt = 110;
+		 public const ushort Card = 111;
+		 public const ushort GamerCardNum = 112;
+		 public const ushort Actor_GameStartHandCards_Ntt = 113;
+		 public const ushort C2G_GetUserInfoInRoom_Req = 114;
+		 public const ushort G2C_GetUserInfoInRoom_Back = 115;
+		 public const ushort Actor_Test = 116;
+		 public const ushort C2M_TestRequest = 117;
+		 public const ushort M2C_TestResponse = 118;
+		 public const ushort Actor_TransferRequest = 119;
+		 public const ushort Actor_TransferResponse = 120;
+		 public const ushort C2G_EnterMap = 121;
+		 public const ushort G2C_EnterMap = 122;
+		 public const ushort UnitInfo = 123;
+		 public const ushort M2C_CreateUnits = 124;
+		 public const ushort Frame_ClickMap = 125;
+		 public const ushort M2C_PathfindingResult = 126;
+		 public const ushort C2R_Ping = 127;
+		 public const ushort R2C_Ping = 128;
+		 public const ushort G2C_Test = 129;
+		 public const ushort C2M_Reload = 130;
+		 public const ushort M2C_Reload = 131;
 	}
 }

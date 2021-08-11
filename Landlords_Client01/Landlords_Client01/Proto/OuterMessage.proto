@@ -1,5 +1,74 @@
 syntax = "proto3";
 package ETModel;
+message Actor_AuthorityPlayCard_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int64 UserID = 1;
+    bool IsFirst = 2;
+}
+
+message Actor_SetMultiples_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int32 Multiples = 1;
+}
+//游戏交互操控消息=====>
+message Actor_GamerPlayCard_Req // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	repeated Card Cards = 1;
+}
+message Actor_GamerPlayCard_Back // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message Actor_GamerDontPlayCard_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UserID = 1;
+}
+message Actor_GamerPrompt_Req // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+message Actor_GamerPrompt_Back // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated Card Cards = 1;
+}
+//开始抢地主消息
+message Actor_AuthorityGrabLandlord_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int64 UserID = 1;
+}
+//选择抢地方消息
+message Actor_GamerGrabLandlordSelect_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UserID = 1;
+	bool IsGrab = 2;
+}
+//设置地主消息
+message Actor_SetLandlord_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int64 UserID = 1;
+    repeated Card LordCards = 2;
+}
+//游戏交互操控消息<=====
 //牌类消息
 message Card
 {
