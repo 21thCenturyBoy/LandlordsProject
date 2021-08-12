@@ -57,7 +57,13 @@ namespace ETModel
         {
             prompt.text = "准备！";
         }
-
+        /// <summary>
+        /// 玩家不出
+        /// </summary>
+        public void SetDiscard()
+        {
+            prompt.text = "不出";
+        }
         /// <summary>
         /// 游戏开始
         /// </summary>

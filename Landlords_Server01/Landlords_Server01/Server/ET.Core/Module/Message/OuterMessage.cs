@@ -9,6 +9,107 @@ using scg = global::System.Collections.Generic;
 namespace ETModel {
 
   #region Messages
+  public partial class Actor_GamerPlayCard_Ntt : pb::IMessage {
+    private static readonly pb::MessageParser<Actor_GamerPlayCard_Ntt> _parser = new pb::MessageParser<Actor_GamerPlayCard_Ntt>(() => (Actor_GamerPlayCard_Ntt)MessagePool.Instance.Fetch(typeof(Actor_GamerPlayCard_Ntt)));
+    public static pb::MessageParser<Actor_GamerPlayCard_Ntt> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private long actorId_;
+    public long ActorId {
+      get { return actorId_; }
+      set {
+        actorId_ = value;
+      }
+    }
+
+    private long userID_;
+    public long UserID {
+      get { return userID_; }
+      set {
+        userID_ = value;
+      }
+    }
+
+    private static readonly pb::FieldCodec<global::ETModel.Card> _repeated_cards_codec
+        = pb::FieldCodec.ForMessage(18, global::ETModel.Card.Parser);
+    private pbc::RepeatedField<global::ETModel.Card> cards_ = new pbc::RepeatedField<global::ETModel.Card>();
+    public pbc::RepeatedField<global::ETModel.Card> Cards {
+      get { return cards_; }
+      set { cards_ = value; }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (UserID != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(UserID);
+      }
+      cards_.WriteTo(output, _repeated_cards_codec);
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (ActorId != 0L) {
+        output.WriteRawTag(232, 5);
+        output.WriteInt64(ActorId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (ActorId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(ActorId);
+      }
+      if (UserID != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserID);
+      }
+      size += cards_.CalculateSize(_repeated_cards_codec);
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      userID_ = 0;
+      for (int i = 0; i < cards_.Count; i++) { MessagePool.Instance.Recycle(cards_[i]); }
+      cards_.Clear();
+      rpcId_ = 0;
+      actorId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            UserID = input.ReadInt64();
+            break;
+          }
+          case 18: {
+            cards_.AddEntriesFrom(input, _repeated_cards_codec);
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 744: {
+            ActorId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public partial class Actor_AuthorityPlayCard_Ntt : pb::IMessage {
     private static readonly pb::MessageParser<Actor_AuthorityPlayCard_Ntt> _parser = new pb::MessageParser<Actor_AuthorityPlayCard_Ntt>(() => (Actor_AuthorityPlayCard_Ntt)MessagePool.Instance.Fetch(typeof(Actor_AuthorityPlayCard_Ntt)));
     public static pb::MessageParser<Actor_AuthorityPlayCard_Ntt> Parser { get { return _parser; } }

@@ -1,5 +1,12 @@
 syntax = "proto3";
 package ETModel;
+message Actor_GamerPlayCard_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UserID = 1;
+	repeated ETModel.Card Cards = 2;
+}
 message Actor_AuthorityPlayCard_Ntt // IActorMessage
 {
 	int32 RpcId = 90;

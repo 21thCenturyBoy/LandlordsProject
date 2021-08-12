@@ -38,9 +38,7 @@ namespace ETModel
         /// </summary>
         public readonly Gamer[] gamers = new Gamer[3];
         public readonly bool[] isReadys = new bool[3];
-        //暂用地主牌属性
-        public readonly List<Card> LordCards = new List<Card>();
-        public readonly List<Card> LordCache = new List<Card>();
+
         /// <summary>
         /// 房间中玩家的数量
         /// </summary>

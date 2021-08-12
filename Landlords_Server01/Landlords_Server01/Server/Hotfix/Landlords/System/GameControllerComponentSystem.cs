@@ -106,7 +106,8 @@ namespace ETHotfix
             //发地主牌
             for (int i = 0; i < 3; i++)
             {
-                self.DealToLord(room.Id);
+                //出牌缓存一开始是空的可借用一下来缓存本局所发的地主牌
+                self.DealTo(room.Id);
             }
             self.Multiples = self.Config.Multiples;
         }
@@ -120,12 +121,22 @@ namespace ETHotfix
             Room room = self.GetParent<Room>();
             Card card = room.GetComponent<DeckComponent>().Deal();
 
-            foreach (var gamer in room.gamers)
+            //如果id为roomid,说明是发地主牌,不是给玩家id发牌
+            if (id == room.Id)
             {
-                if (id == gamer.UserID)
+                DeskCardsCacheComponent deskCardsCache = room.GetComponent<DeskCardsCacheComponent>();
+                deskCardsCache.AddCard(card);
+                deskCardsCache.LordCards.Add(card);
+            }
+            else
+            {
+                foreach (var gamer in room.gamers)
                 {
-                    gamer.GetComponent<HandCardsComponent>().AddCard(card);
-                    break;
+                    if (id == gamer.UserID)
+                    {
+                        gamer.GetComponent<HandCardsComponent>().AddCard(card);
+                        break;
+                    }
                 }
             }
 
@@ -147,35 +158,14 @@ namespace ETHotfix
             room.Broadcast(new Actor_AuthorityGrabLandlord_Ntt() { UserID = firstAuthority });
         }
 
-        /// <summary>
-        /// 暂用存地主牌方法
-        /// </summary>
-        public static void DealToLord(this GameControllerComponent self, long id)
-        {
-            Room room = self.GetParent<Room>();
-            Card card = room.GetComponent<DeckComponent>().Deal();
-            if (id == room.Id)
-            {
-                room.LordCache.Add(card);
-                room.LordCards.Add(card);
-            }
-        }
-        /// <summary>
-        /// 暂用发地主牌方法
-        /// </summary>
-        public static Card DealLord(this GameControllerComponent self, Room room)
-        {
-            Card card = room.LordCache[room.LordCache.Count - 1];
-            room.LordCache.Remove(card);
-            return card;
-        }
 
         /// <summary>
-        /// 向客户端发地主牌
+        /// 给牌桌发地主牌
         /// </summary>
         public static void CardsOnTable(this GameControllerComponent self, long id)
         {
             Room room = self.GetParent<Room>();
+            DeskCardsCacheComponent deskCardsCache = room.GetComponent<DeskCardsCacheComponent>();
             OrderControllerComponent orderController = room.GetComponent<OrderControllerComponent>();
             HandCardsComponent handCards = room.GetGamerFromUserID(id).GetComponent<HandCardsComponent>();
 
@@ -183,7 +173,9 @@ namespace ETHotfix
 
             for (int i = 0; i < 3; i++)
             {
-                Card card = self.DealLord(room);
+                //出牌缓存中移除了地主牌缓存
+                Card card = deskCardsCache.Deal();
+                //将地主牌添加到地主玩家的手牌
                 handCards.AddCard(card);
             }
 
@@ -195,7 +187,7 @@ namespace ETHotfix
             }
 
             //广播地主消息
-            room.Broadcast(new Actor_SetLandlord_Ntt() { UserID = id, LordCards = To.RepeatedField(room.LordCards) });
+            room.Broadcast(new Actor_SetLandlord_Ntt() { UserID = id, LordCards = To.RepeatedField(deskCardsCache.LordCards) });
 
             //广播地主先手出牌消息
             room.Broadcast(new Actor_AuthorityPlayCard_Ntt() { UserID = id, IsFirst = true });
@@ -227,6 +219,34 @@ namespace ETHotfix
                     handCards.PopCard(card);
                     deckComponent.AddCard(card);
                 }
+            }
+        }
+        /// <summary>
+        /// 判断出牌后游戏继续or结束
+        /// </summary>
+        public static void Continue(this GameControllerComponent self, Gamer lastGamer)
+        {
+            Room room = self.GetParent<Room>();
+            OrderControllerComponent orderController = room.GetComponent<OrderControllerComponent>();
+
+            //是否结束,当前出牌者手牌数为0时游戏结束
+            bool isEnd = lastGamer.GetComponent<HandCardsComponent>().CardsCount == 0;
+            if (isEnd)
+            {
+                //当前最大出牌者为赢家
+                Identity winnerIdentity = room.GetGamerFromUserID(orderController.Biggest).GetComponent<HandCardsComponent>().AccessIdentity;
+                //List<GamerScore> gamersScore = new List<GamerScore>();
+
+                //游戏结束所有玩家摊牌
+                //...
+                //self.GameOver(gamersScore, winnerIdentity);
+            }
+            else
+            {
+                //轮到下位玩家出牌
+                orderController.Biggest = lastGamer.UserID;
+                orderController.Turn();
+                room.Broadcast(new Actor_AuthorityPlayCard_Ntt() { UserID = orderController.CurrentAuthority, IsFirst = false });
             }
         }
     }
