@@ -2,6 +2,9 @@
 
 namespace ETModel
 {
+    /// <summary>
+    /// 出牌控制
+    /// </summary>
     public class OrderControllerComponent : Component
     {
         //先手玩家

@@ -58,6 +58,7 @@ message Actor_AuthorityGrabLandlord_Ntt // IActorMessage
 	int32 RpcId = 90;
 	int64 ActorId = 93;
     int64 UserID = 1;
+    bool IsReload = 2;
 }
 //选择抢地方消息
 message Actor_GamerGrabLandlordSelect_Ntt // IActorMessage

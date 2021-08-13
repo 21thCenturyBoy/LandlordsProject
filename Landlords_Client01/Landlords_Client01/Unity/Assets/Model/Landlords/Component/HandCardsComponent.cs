@@ -60,8 +60,9 @@ namespace ETModel
         /// </summary>
         public void Reset()
         {
-            ClearHandCards();
-            ClearPlayCards();
+            //ClearHandCards();
+            //ClearPlayCards();
+            ClearAllCards();
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace ETModel
             {
                 return cardSprite;
             }
-            Log.Debug("没找到这张卡牌！" + card.GetName());
+            //Log.Debug("没找到这张卡牌！" + card.GetName());
             return cardSprite;
         }
 
@@ -111,11 +112,11 @@ namespace ETModel
         /// 添加多张牌
         /// </summary>
         /// <param name="cards"></param>
-        public void AddCards(Card[] cards)
+        public void AddHandCards(Card[] cards)
         {
             for (int i = 0; i < cards.Length; i++)
             {
-                AddCard(cards[i]);
+                AddHandCard(cards[i]);
             }
             CardsSpriteUpdate(handCards, 50.0f);
         }
@@ -131,7 +132,7 @@ namespace ETModel
             for (int i = 0; i < cards.Length; i++)
             {
                 PopCard(cards[i]);
-                Log.Debug("更新一张牌：" + cards[i].GetName());
+                //Log.Debug("更新一张牌：" + cards[i].GetName());
             }
             CardsSpriteUpdate(playCards, 25.0f);
             CardsSpriteUpdate(handCards, 50.0f);
@@ -158,7 +159,19 @@ namespace ETModel
         /// </summary>
         public void ClearPlayCards()
         {
-            ClearCards(playCards);
+            //ClearCards(playCards);
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                Log.Info($"清空{playCards[i].ToString()}");
+                GameObject cardObj;
+                cardsSprite.TryGetValue(playCards[i].GetName(), out cardObj);
+                if (null != cardObj)
+                {
+                    UnityEngine.Object.Destroy(cardObj);
+                    cardsSprite.Remove(playCards[i].GetName());
+                }
+            }
+            playCards.Clear();
         }
 
         /// <summary>
@@ -181,22 +194,42 @@ namespace ETModel
                 rect.anchoredPosition = new Vector2(startX + (i * interval), rect.anchoredPosition.y);
             }
         }
-
+        /// <summary>
+        /// 清空卡牌
+        /// </summary>
+        /// <param name="cards"></param>
+        private void ClearAllCards()
+        {
+            playCards.Clear();
+            handCards.Clear();
+            foreach (var gameObject in cardsSprite.Values)
+            {
+                UnityEngine.Object.Destroy(gameObject);
+            }
+            cardsSprite.Clear();
+        }
         /// <summary>
         /// 清空卡牌
         /// </summary>
         /// <param name="cards"></param>
         private void ClearCards(List<Card> cards)
         {
+            Log.Info(cards.ToString());
             for (int i = cards.Count - 1; i >= 0; i--)
             {
                 Card card = cards[i];
-                Log.Debug("删除卡牌" + card.GetName());
-                GameObject cardSprite = cardsSprite[card.GetName()];
-                cardsSprite.Remove(card.GetName());
-                cards.Remove(card);
-                UnityEngine.Object.Destroy(cardSprite);
+                string cn = card.GetName();
+                Log.Debug("删除卡牌" + cn);
+
+                GameObject cardSprite;
+                cardsSprite.TryGetValue(cn, out cardSprite);
+                if (null != cardSprite)
+                {
+                    cardsSprite.Remove(cn);
+                    UnityEngine.Object.Destroy(cardSprite);
+                }
             }
+            cards.Clear();
         }
 
         /// <summary>
@@ -220,7 +253,7 @@ namespace ETModel
         /// 添加卡牌
         /// </summary>
         /// <param name="card"></param>
-        private void AddCard(Card card)
+        private void AddHandCard(Card card)
         {
             GameObject handCardSprite = CreateCardSprite(HANDCARD_NAME, card.GetName(), this.Panel.Get<GameObject>("HandCards").transform);
             handCardSprite.GetComponent<HandCardSprite>().Poker = card;
@@ -235,20 +268,13 @@ namespace ETModel
         private void PopCard(Card card)
         {
             //移除手牌
-            //因为对象并不是完全一致，不能用Contains来查找
-            foreach (var a in handCards)
-            {
-                if (a.Equals(card))
-                {
-                    Log.Debug("pop删除卡牌" + a.GetName());
-                    GameObject handCardSprite = GetSprite(a);
-                    cardsSprite.Remove(a.GetName());
-                    handCards.Remove(a);
-                    UnityEngine.Object.Destroy(handCardSprite);
-                    break;
-                }
-            }
+            //Log.Debug("pop删除卡牌" + card.GetName());
+            GameObject handCardSprite = GetSprite(card);
+            cardsSprite.Remove(card.GetName()); ;
+            UnityEngine.Object.Destroy(handCardSprite);
+            handCards.Remove(card);
 
+            //添加出牌
             GameObject playCardSprite = CreateCardSprite(PLAYCARD_NAME, card.GetName(), this.Panel.Get<GameObject>("PlayCards").transform);
             cardsSprite.Add(card.GetName(), playCardSprite);
             playCards.Add(card);

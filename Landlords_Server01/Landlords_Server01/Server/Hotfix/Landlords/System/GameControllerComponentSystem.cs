@@ -74,8 +74,8 @@ namespace ETHotfix
                 });
             }
 
-            //随机先手玩家
-            gameController.RandomFirstAuthority();
+            //随机先手玩家，第一次抢地主，三次轮空会导致重新随机地主
+            gameController.RandomFirstAuthority(false);
             Log.Info($"房间{room.Id}开始游戏");
         }
 
@@ -103,7 +103,7 @@ namespace ETHotfix
                 index++;
             }
 
-            //发地主牌
+            //留三张发地主牌
             for (int i = 0; i < 3; i++)
             {
                 //出牌缓存一开始是空的可借用一下来缓存本局所发的地主牌
@@ -144,7 +144,7 @@ namespace ETHotfix
         /// <summary>
         /// 随机先手玩家
         /// </summary>
-        public static void RandomFirstAuthority(this GameControllerComponent self)
+        public static void RandomFirstAuthority(this GameControllerComponent self, bool isReload)
         {
             Room room = self.GetParent<Room>();
             OrderControllerComponent orderController = room.GetComponent<OrderControllerComponent>();
@@ -155,7 +155,7 @@ namespace ETHotfix
             orderController.Init(firstAuthority);
 
             //广播先手抢地主玩家
-            room.Broadcast(new Actor_AuthorityGrabLandlord_Ntt() { UserID = firstAuthority });
+            room.Broadcast(new Actor_AuthorityGrabLandlord_Ntt() { UserID = firstAuthority ,IsReload = isReload });
         }
 
 
@@ -222,8 +222,28 @@ namespace ETHotfix
             }
         }
         /// <summary>
-        /// 判断出牌后游戏继续or结束
+        /// 回收未发的地主牌
+        /// 检查牌桌缓存中是否存在残留的牌（没人抢地主则重新发牌会导致地主牌留在缓存组件内）
         /// </summary>
+        /// <param name="self"></param>
+        public static void BackUnDealingToDeck(this GameControllerComponent self)
+        {
+            Room room = self.GetParent<Room>();
+            DeckComponent deckComponent = room.GetComponent<DeckComponent>();
+            DeskCardsCacheComponent deskCardsCache = room.GetComponent<DeskCardsCacheComponent>();
+            //回收缓存中的地主牌
+            while (deskCardsCache.CardsCount > 0)
+            {
+                Card card = deskCardsCache.Deal();
+                deckComponent.AddCard(card);
+            }
+            //清空缓存地主牌
+            deskCardsCache.LordCards.Clear();
+        }
+
+        /// <summary>
+            /// 判断出牌后游戏继续or结束
+            /// </summary>
         public static void Continue(this GameControllerComponent self, Gamer lastGamer)
         {
             Room room = self.GetParent<Room>();

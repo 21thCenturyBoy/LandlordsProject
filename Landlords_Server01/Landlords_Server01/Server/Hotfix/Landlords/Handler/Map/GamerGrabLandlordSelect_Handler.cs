@@ -10,16 +10,19 @@ namespace ETHotfix
     {
         protected override async ETTask Run(Gamer gamer, Actor_GamerGrabLandlordSelect_Ntt message)
         {
+            //获取房间内的出牌组件和游戏控制组件
             Room room = Game.Scene.GetComponent<LandMatchComponent>().GetGamingRoom(gamer);
             OrderControllerComponent orderController = room.GetComponent<OrderControllerComponent>();
             GameControllerComponent gameController = room.GetComponent<GameControllerComponent>();
             ActorMessageSenderComponent actorProxyComponent = Game.Scene.GetComponent<ActorMessageSenderComponent>();
 
+            //当前出牌规则正确
             if (orderController.CurrentAuthority == gamer.UserID)
             {
                 //保存抢地主状态
                 orderController.GamerLandlordState[gamer.UserID] = message.IsGrab;
 
+                //当前玩家抢地主
                 if (message.IsGrab)
                 {
                     orderController.Biggest = gamer.UserID;
@@ -46,6 +49,7 @@ namespace ETHotfix
                     {
                         //没人抢地主则重新发牌
                         gameController.BackToDeck();
+                        gameController.BackUnDealingToDeck();
                         gameController.DealCards();
 
                         //发送玩家手牌
@@ -66,14 +70,11 @@ namespace ETHotfix
                             });
                         });
 
-                        //随机先手玩家
-                        gameController.RandomFirstAuthority();
+                        //重新随机先手玩家
+                        gameController.RandomFirstAuthority(true);
                         return;
                     }
-                    else if ((orderController.SelectLordIndex == room.Count &&
-                        ((orderController.Biggest != orderController.FirstAuthority.Key && !orderController.FirstAuthority.Value) ||
-                        orderController.Biggest == orderController.FirstAuthority.Key)) ||
-                        orderController.SelectLordIndex > room.Count)
+                    else if ((orderController.SelectLordIndex == room.Count && ((orderController.Biggest != orderController.FirstAuthority.Key && !orderController.FirstAuthority.Value) || orderController.Biggest == orderController.FirstAuthority.Key)) || orderController.SelectLordIndex > room.Count)
                     {
                         gameController.CardsOnTable(orderController.Biggest);
                         return;

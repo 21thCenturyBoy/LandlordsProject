@@ -16,6 +16,18 @@ namespace ETModel
                 uiRoom.GetComponent<LandRoomComponent>().Interaction.StartGrab();
             }
 
+            string info = message.IsReload ? "轮空！洗牌！重新抢地主" :"抢地主！";
+            Log.Info(info);
+            //轮空！洗牌！重新抢地主
+            if (message.IsReload)
+            {
+                LandRoomComponent room = uiRoom.GetComponent<LandRoomComponent>();
+                for (int i = 0; i < room.gamers.Length; i++)
+                {
+                    room.gamers[i].GetComponent<LandlordsGamerPanelComponent>().ResetPrompt();
+                }
+            }
+
             await ETTask.CompletedTask;
         }
     }

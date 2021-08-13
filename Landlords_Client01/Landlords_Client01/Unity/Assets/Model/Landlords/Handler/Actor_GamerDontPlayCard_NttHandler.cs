@@ -17,6 +17,7 @@ namespace ETModel
                 {
                     uiRoom.GetComponent<LandRoomComponent>().Interaction.EndPlay();
                 }
+                Log.Info($"gamer{message.UserID}不出牌！");
                 gamer.GetComponent<HandCardsComponent>().ClearPlayCards();
                 gamer.GetComponent<LandlordsGamerPanelComponent>().SetDiscard();
             }

@@ -751,10 +751,22 @@ namespace ETModel {
       }
     }
 
+    private bool isReload_;
+    public bool IsReload {
+      get { return isReload_; }
+      set {
+        isReload_ = value;
+      }
+    }
+
     public void WriteTo(pb::CodedOutputStream output) {
       if (UserID != 0L) {
         output.WriteRawTag(8);
         output.WriteInt64(UserID);
+      }
+      if (IsReload != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(IsReload);
       }
       if (RpcId != 0) {
         output.WriteRawTag(208, 5);
@@ -777,11 +789,15 @@ namespace ETModel {
       if (UserID != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserID);
       }
+      if (IsReload != false) {
+        size += 1 + 1;
+      }
       return size;
     }
 
     public void MergeFrom(pb::CodedInputStream input) {
       userID_ = 0;
+      isReload_ = false;
       rpcId_ = 0;
       actorId_ = 0;
       uint tag;
@@ -792,6 +808,10 @@ namespace ETModel {
             break;
           case 8: {
             UserID = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            IsReload = input.ReadBool();
             break;
           }
           case 720: {

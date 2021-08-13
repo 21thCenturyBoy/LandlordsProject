@@ -24,8 +24,9 @@ namespace ETModel
                     for (int i = 0; i < message.LordCards.Count; i++)
                     {
                         Tcards[i] = message.LordCards[i];
+                        Log.Info("添加地主牌:" + message.LordCards[i].GetName());
                     }
-                    handCards.AddCards(Tcards);
+                    handCards.AddHandCards(Tcards);
                 }
                 else
                 {

@@ -1,5 +1,8 @@
 ﻿namespace ETModel
 {
+    /// <summary>
+    /// 游戏控制组件
+    /// </summary>
     public class GameControllerComponent : Component
     {
         //房间配置

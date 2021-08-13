@@ -43,7 +43,7 @@ namespace ETModel
                     {
                         Tcards[i] = message.HandCards[i];
                     }
-                    handCards.AddCards(Tcards);
+                    handCards.AddHandCards(Tcards);
                 }
                 else
                 {

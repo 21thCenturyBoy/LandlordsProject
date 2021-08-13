@@ -11,6 +11,7 @@ namespace ETModel
             UI uiRoom = Game.Scene.GetComponent<UIComponent>().Get(LandUIType.LandRoom);
             LandRoomComponent room = uiRoom.GetComponent<LandRoomComponent>();
             Gamer gamer = room.GetGamer(message.UserID);
+
             if (gamer != null)
             {
                 //重置玩家提示
@@ -19,7 +20,12 @@ namespace ETModel
                 //当玩家为先手，清空出牌
                 if (message.IsFirst)
                 {
-                    gamer.GetComponent<HandCardsComponent>().ClearPlayCards();
+                    //先手清空其他牌
+                    for (int i = 0; i < room.gamers.Length; i++)
+                    {
+                        room.gamers[i].GetComponent<HandCardsComponent>().ClearPlayCards();//清掉所有牌
+                        room.gamers[i].GetComponent<LandlordsGamerPanelComponent>().ResetPrompt();
+                    }
                 }
 
                 //显示出牌按钮
