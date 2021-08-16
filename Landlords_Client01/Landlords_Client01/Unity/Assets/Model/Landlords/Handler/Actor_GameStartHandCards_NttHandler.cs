@@ -41,7 +41,7 @@ namespace ETModel
                     Card[] Tcards = new Card[message.HandCards.Count];
                     for (int i = 0; i < message.HandCards.Count; i++)
                     {
-                        Tcards[i] = message.HandCards[i];
+                        Tcards[i] = Card.Create(message.HandCards[i].CardWeight,message.HandCards[i].CardSuits);
                     }
                     handCards.AddHandCards(Tcards);
                 }

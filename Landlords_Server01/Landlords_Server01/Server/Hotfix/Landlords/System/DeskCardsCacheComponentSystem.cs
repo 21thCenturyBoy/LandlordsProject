@@ -12,8 +12,7 @@ namespace ETHotfix
         /// </summary>
         public static int GetTotalWeight(this DeskCardsCacheComponent self)
         {
-            //return CardHelper.GetWeight(self.library.ToArray(), self.Rule);
-            return 0;
+            return CardHelper.GetWeight(self.library.ToArray(), self.Rule);
         }
 
         /// <summary>

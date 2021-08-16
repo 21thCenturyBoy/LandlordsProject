@@ -23,7 +23,7 @@ namespace ETModel
                     Card[] Tcards = new Card[message.LordCards.Count];
                     for (int i = 0; i < message.LordCards.Count; i++)
                     {
-                        Tcards[i] = message.LordCards[i];
+                        Tcards[i] = Card.Create(message.LordCards[i].CardWeight, message.LordCards[i].CardSuits);
                         Log.Info("添加地主牌:" + message.LordCards[i].GetName());
                     }
                     handCards.AddHandCards(Tcards);

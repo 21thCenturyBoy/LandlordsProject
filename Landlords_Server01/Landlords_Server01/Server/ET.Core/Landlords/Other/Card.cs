@@ -1,15 +1,18 @@
-﻿namespace ETModel
+﻿using System;
+
+namespace ETModel
 {
     /// <summary>
     /// 参考Unit类
     /// </summary>
-    public partial class Card
+    public partial class Card : IEquatable<Card>
     {
         public static Card Create(int weight, int suits)
         {
+            //TODO 以后改成对象池引用
             Card card = new Card();
-            card.CardWeight = weight; //点数
-            card.CardSuits = suits; //花色
+            card.CardWeight = weight;
+            card.CardSuits = suits;
             return card;
         }
 
@@ -17,7 +20,7 @@
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return cardWeight_ == other.cardWeight_ && cardSuits_ == other.cardSuits_;
+            return CardWeight == other.CardWeight && CardSuits == other.CardSuits;
         }
 
         public override bool Equals(object obj)
@@ -32,7 +35,7 @@
         {
             unchecked
             {
-                return (cardWeight_ * 397) ^ cardSuits_;
+                return (CardWeight * 397) ^ CardSuits;
             }
         }
 
@@ -45,14 +48,11 @@
         {
             return !Equals(left, right);
         }
-        //public bool Equals(Card other)
-        //{
-        //    return this.CardWeight == other.CardWeight && this.CardSuits == other.CardSuits;
-        //}
         public override string ToString()
         {
             return $"[{nameof(CardWeight)}: {CardWeight}, {nameof(CardSuits)}: {CardSuits}]";
         }
+
         /// <summary>
         /// 获取卡牌名
         /// </summary>

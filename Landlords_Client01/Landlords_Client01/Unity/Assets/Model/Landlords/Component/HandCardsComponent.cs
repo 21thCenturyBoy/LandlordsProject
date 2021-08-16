@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -159,19 +159,7 @@ namespace ETModel
         /// </summary>
         public void ClearPlayCards()
         {
-            //ClearCards(playCards);
-            for (int i = 0; i < playCards.Count; i++)
-            {
-                Log.Info($"清空{playCards[i].ToString()}");
-                GameObject cardObj;
-                cardsSprite.TryGetValue(playCards[i].GetName(), out cardObj);
-                if (null != cardObj)
-                {
-                    UnityEngine.Object.Destroy(cardObj);
-                    cardsSprite.Remove(playCards[i].GetName());
-                }
-            }
-            playCards.Clear();
+            ClearCards(playCards);
         }
 
         /// <summary>
@@ -214,12 +202,11 @@ namespace ETModel
         /// <param name="cards"></param>
         private void ClearCards(List<Card> cards)
         {
-            Log.Info(cards.ToString());
             for (int i = cards.Count - 1; i >= 0; i--)
             {
                 Card card = cards[i];
                 string cn = card.GetName();
-                Log.Debug("删除卡牌" + cn);
+                //Log.Debug("删除卡牌" + cn);
 
                 GameObject cardSprite;
                 cardsSprite.TryGetValue(cn, out cardSprite);
@@ -268,9 +255,8 @@ namespace ETModel
         private void PopCard(Card card)
         {
             //移除手牌
-            //Log.Debug("pop删除卡牌" + card.GetName());
             GameObject handCardSprite = GetSprite(card);
-            cardsSprite.Remove(card.GetName()); ;
+            cardsSprite.Remove(card.GetName());
             UnityEngine.Object.Destroy(handCardSprite);
             handCards.Remove(card);
 
