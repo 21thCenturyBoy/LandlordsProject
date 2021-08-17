@@ -119,6 +119,13 @@ namespace ETModel
             prompt.text = "您出的牌不符合规则！";
         }
         /// <summary>
+        /// 出牌错误
+        /// </summary>
+        public void SetDisCanPlayCards()
+        {
+            prompt.text = "没有大过场上的牌！";
+        }
+        /// <summary>
         /// 玩家抢地主
         /// </summary>
         public void SetGrab(bool isGrab)

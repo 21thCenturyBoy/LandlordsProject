@@ -178,6 +178,12 @@ namespace ETModel
                     handCards.GetSprite(response.Cards[i]).GetComponent<HandCardSprite>().OnClick(null);
                 }
             }
+            //没有大过场上的牌
+            if (response.Cards.Count==0)
+            {
+                LandlordsGamerPanelComponent gamerUI = LandRoomComponent.LocalGamer.GetComponent<LandlordsGamerPanelComponent>();
+                gamerUI.SetDisCanPlayCards();
+            }
         }
 
         /// <summary>
