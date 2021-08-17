@@ -1,5 +1,30 @@
 syntax = "proto3";
 package ETModel;
+message Actor_GamerContinue_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+message GamerScore
+{
+    int64 UserID = 1;
+    int64 Score = 2;
+}
+message Actor_Gameover_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int32 Winner = 1; //byte
+    int64 BasePointPerMatch = 2;
+    int32 Multiples = 3;
+    repeated GamerScore GamersScore = 4;
+}
+message Actor_GamerMoneyLess_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int64 UserID = 1;
+}
 //测试向服务器发送消息
 message C2G_TestMessage  // IRequest
 {

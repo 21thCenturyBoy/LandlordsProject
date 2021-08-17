@@ -1,6 +1,18 @@
 using ETModel;
 namespace ETModel
 {
+	[Message(HotfixOpcode.Actor_GamerContinue_Ntt)]
+	public partial class Actor_GamerContinue_Ntt : IActorMessage {}
+
+	[Message(HotfixOpcode.GamerScore)]
+	public partial class GamerScore {}
+
+	[Message(HotfixOpcode.Actor_Gameover_Ntt)]
+	public partial class Actor_Gameover_Ntt : IActorMessage {}
+
+	[Message(HotfixOpcode.Actor_GamerMoneyLess_Ntt)]
+	public partial class Actor_GamerMoneyLess_Ntt : IActorMessage {}
+
 //测试向服务器发送消息
 	[Message(HotfixOpcode.C2G_TestMessage)]
 	public partial class C2G_TestMessage : IRequest {}
@@ -126,38 +138,42 @@ namespace ETModel
 {
 	public static partial class HotfixOpcode
 	{
-		 public const ushort C2G_TestMessage = 10001;
-		 public const ushort G2C_TestMessage = 10002;
-		 public const ushort Actor_GamerReady_Landlords = 10003;
-		 public const ushort GamerInfo = 10004;
-		 public const ushort C2G_ReturnLobby_Ntt = 10005;
-		 public const ushort C2G_StartMatch_Req = 10006;
-		 public const ushort G2C_StartMatch_Back = 10007;
-		 public const ushort Actor_LandMatcherPlusOne_NTT = 10008;
-		 public const ushort Actor_LandMatcherReduceOne_NTT = 10009;
-		 public const ushort Actor_GamerEnterRoom_Ntt = 10010;
-		 public const ushort Actor_GamerExitRoom_Ntt = 10011;
-		 public const ushort A1001_GetUserInfo_C2G = 10012;
-		 public const ushort A1001_GetUserInfo_G2C = 10013;
-		 public const ushort A1002_SetUserInfo_C2G = 10014;
-		 public const ushort A1002_SetUserInfo_G2C = 10015;
-		 public const ushort A0003_LoginGate_C2G = 10016;
-		 public const ushort A0003_LoginGate_G2C = 10017;
-		 public const ushort A0002_Login_C2R = 10018;
-		 public const ushort A0002_Login_R2C = 10019;
-		 public const ushort A0001_Register_C2R = 10020;
-		 public const ushort A0001_Register_R2C = 10021;
-		 public const ushort C2R_Login = 10022;
-		 public const ushort R2C_Login = 10023;
-		 public const ushort C2G_LoginGate = 10024;
-		 public const ushort G2C_LoginGate = 10025;
-		 public const ushort G2C_TestHotfixMessage = 10026;
-		 public const ushort C2M_TestActorRequest = 10027;
-		 public const ushort M2C_TestActorResponse = 10028;
-		 public const ushort PlayerInfo = 10029;
-		 public const ushort C2G_PlayerInfo = 10030;
-		 public const ushort G2C_PlayerInfo = 10031;
-		 public const ushort C2G_LoginGate_Req = 10032;
-		 public const ushort G2C_LoginGate_Back = 10033;
+		 public const ushort Actor_GamerContinue_Ntt = 10001;
+		 public const ushort GamerScore = 10002;
+		 public const ushort Actor_Gameover_Ntt = 10003;
+		 public const ushort Actor_GamerMoneyLess_Ntt = 10004;
+		 public const ushort C2G_TestMessage = 10005;
+		 public const ushort G2C_TestMessage = 10006;
+		 public const ushort Actor_GamerReady_Landlords = 10007;
+		 public const ushort GamerInfo = 10008;
+		 public const ushort C2G_ReturnLobby_Ntt = 10009;
+		 public const ushort C2G_StartMatch_Req = 10010;
+		 public const ushort G2C_StartMatch_Back = 10011;
+		 public const ushort Actor_LandMatcherPlusOne_NTT = 10012;
+		 public const ushort Actor_LandMatcherReduceOne_NTT = 10013;
+		 public const ushort Actor_GamerEnterRoom_Ntt = 10014;
+		 public const ushort Actor_GamerExitRoom_Ntt = 10015;
+		 public const ushort A1001_GetUserInfo_C2G = 10016;
+		 public const ushort A1001_GetUserInfo_G2C = 10017;
+		 public const ushort A1002_SetUserInfo_C2G = 10018;
+		 public const ushort A1002_SetUserInfo_G2C = 10019;
+		 public const ushort A0003_LoginGate_C2G = 10020;
+		 public const ushort A0003_LoginGate_G2C = 10021;
+		 public const ushort A0002_Login_C2R = 10022;
+		 public const ushort A0002_Login_R2C = 10023;
+		 public const ushort A0001_Register_C2R = 10024;
+		 public const ushort A0001_Register_R2C = 10025;
+		 public const ushort C2R_Login = 10026;
+		 public const ushort R2C_Login = 10027;
+		 public const ushort C2G_LoginGate = 10028;
+		 public const ushort G2C_LoginGate = 10029;
+		 public const ushort G2C_TestHotfixMessage = 10030;
+		 public const ushort C2M_TestActorRequest = 10031;
+		 public const ushort M2C_TestActorResponse = 10032;
+		 public const ushort PlayerInfo = 10033;
+		 public const ushort C2G_PlayerInfo = 10034;
+		 public const ushort G2C_PlayerInfo = 10035;
+		 public const ushort C2G_LoginGate_Req = 10036;
+		 public const ushort G2C_LoginGate_Back = 10037;
 	}
 }

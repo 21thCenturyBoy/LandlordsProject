@@ -130,7 +130,15 @@ namespace ETModel
             promptButton.gameObject.SetActive(false);
             discardButton.gameObject.SetActive(false);
         }
-
+        /// <summary>
+        /// 游戏结束
+        /// </summary>
+        public void Gameover()
+        {
+            promptButton.gameObject.SetActive(false);
+            playButton.gameObject.SetActive(false);
+            discardButton.gameObject.SetActive(false);
+        }
 
         /// <summary>
         /// 出牌

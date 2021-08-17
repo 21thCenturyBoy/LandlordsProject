@@ -9,6 +9,365 @@ using scg = global::System.Collections.Generic;
 namespace ETModel {
 
   #region Messages
+  public partial class Actor_GamerContinue_Ntt : pb::IMessage {
+    private static readonly pb::MessageParser<Actor_GamerContinue_Ntt> _parser = new pb::MessageParser<Actor_GamerContinue_Ntt>(() => (Actor_GamerContinue_Ntt)MessagePool.Instance.Fetch(typeof(Actor_GamerContinue_Ntt)));
+    public static pb::MessageParser<Actor_GamerContinue_Ntt> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private long actorId_;
+    public long ActorId {
+      get { return actorId_; }
+      set {
+        actorId_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (ActorId != 0L) {
+        output.WriteRawTag(232, 5);
+        output.WriteInt64(ActorId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (ActorId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(ActorId);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      rpcId_ = 0;
+      actorId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 744: {
+            ActorId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public partial class GamerScore : pb::IMessage {
+    private static readonly pb::MessageParser<GamerScore> _parser = new pb::MessageParser<GamerScore>(() => (GamerScore)MessagePool.Instance.Fetch(typeof(GamerScore)));
+    public static pb::MessageParser<GamerScore> Parser { get { return _parser; } }
+
+    private long userID_;
+    public long UserID {
+      get { return userID_; }
+      set {
+        userID_ = value;
+      }
+    }
+
+    private long score_;
+    public long Score {
+      get { return score_; }
+      set {
+        score_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (UserID != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(UserID);
+      }
+      if (Score != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Score);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (UserID != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserID);
+      }
+      if (Score != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Score);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      userID_ = 0;
+      score_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            UserID = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            Score = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public partial class Actor_Gameover_Ntt : pb::IMessage {
+    private static readonly pb::MessageParser<Actor_Gameover_Ntt> _parser = new pb::MessageParser<Actor_Gameover_Ntt>(() => (Actor_Gameover_Ntt)MessagePool.Instance.Fetch(typeof(Actor_Gameover_Ntt)));
+    public static pb::MessageParser<Actor_Gameover_Ntt> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private long actorId_;
+    public long ActorId {
+      get { return actorId_; }
+      set {
+        actorId_ = value;
+      }
+    }
+
+    private int winner_;
+    /// <summary>
+    ///byte
+    /// </summary>
+    public int Winner {
+      get { return winner_; }
+      set {
+        winner_ = value;
+      }
+    }
+
+    private long basePointPerMatch_;
+    public long BasePointPerMatch {
+      get { return basePointPerMatch_; }
+      set {
+        basePointPerMatch_ = value;
+      }
+    }
+
+    private int multiples_;
+    public int Multiples {
+      get { return multiples_; }
+      set {
+        multiples_ = value;
+      }
+    }
+
+    private static readonly pb::FieldCodec<global::ETModel.GamerScore> _repeated_gamersScore_codec
+        = pb::FieldCodec.ForMessage(34, global::ETModel.GamerScore.Parser);
+    private pbc::RepeatedField<global::ETModel.GamerScore> gamersScore_ = new pbc::RepeatedField<global::ETModel.GamerScore>();
+    public pbc::RepeatedField<global::ETModel.GamerScore> GamersScore {
+      get { return gamersScore_; }
+      set { gamersScore_ = value; }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Winner != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Winner);
+      }
+      if (BasePointPerMatch != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(BasePointPerMatch);
+      }
+      if (Multiples != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Multiples);
+      }
+      gamersScore_.WriteTo(output, _repeated_gamersScore_codec);
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (ActorId != 0L) {
+        output.WriteRawTag(232, 5);
+        output.WriteInt64(ActorId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (ActorId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(ActorId);
+      }
+      if (Winner != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Winner);
+      }
+      if (BasePointPerMatch != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(BasePointPerMatch);
+      }
+      if (Multiples != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Multiples);
+      }
+      size += gamersScore_.CalculateSize(_repeated_gamersScore_codec);
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      winner_ = 0;
+      basePointPerMatch_ = 0;
+      multiples_ = 0;
+      for (int i = 0; i < gamersScore_.Count; i++) { MessagePool.Instance.Recycle(gamersScore_[i]); }
+      gamersScore_.Clear();
+      rpcId_ = 0;
+      actorId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Winner = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            BasePointPerMatch = input.ReadInt64();
+            break;
+          }
+          case 24: {
+            Multiples = input.ReadInt32();
+            break;
+          }
+          case 34: {
+            gamersScore_.AddEntriesFrom(input, _repeated_gamersScore_codec);
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 744: {
+            ActorId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public partial class Actor_GamerMoneyLess_Ntt : pb::IMessage {
+    private static readonly pb::MessageParser<Actor_GamerMoneyLess_Ntt> _parser = new pb::MessageParser<Actor_GamerMoneyLess_Ntt>(() => (Actor_GamerMoneyLess_Ntt)MessagePool.Instance.Fetch(typeof(Actor_GamerMoneyLess_Ntt)));
+    public static pb::MessageParser<Actor_GamerMoneyLess_Ntt> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private long actorId_;
+    public long ActorId {
+      get { return actorId_; }
+      set {
+        actorId_ = value;
+      }
+    }
+
+    private long userID_;
+    public long UserID {
+      get { return userID_; }
+      set {
+        userID_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (UserID != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(UserID);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (ActorId != 0L) {
+        output.WriteRawTag(232, 5);
+        output.WriteInt64(ActorId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (ActorId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(ActorId);
+      }
+      if (UserID != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserID);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      userID_ = 0;
+      rpcId_ = 0;
+      actorId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            UserID = input.ReadInt64();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 744: {
+            ActorId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   /// <summary>
   ///测试向服务器发送消息
   /// </summary>

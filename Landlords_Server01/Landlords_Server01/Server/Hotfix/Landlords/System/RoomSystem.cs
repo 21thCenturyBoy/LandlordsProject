@@ -173,5 +173,16 @@ namespace ETHotfix
                 actorProxy.Send(message);
             }
         }
+        public static void ClearRoom(this Room self)
+        {
+            LandMatchComponent Match = Game.Scene.GetComponent<LandMatchComponent>();
+            for (int i = 0; i < self.gamers.Length; i++)
+            {
+                Gamer gamer = self.gamers[i];
+                Match.Playing.Remove(gamer.UserID);
+                gamer.Dispose();
+                self.Dispose();
+            }
+        }
     }
 }

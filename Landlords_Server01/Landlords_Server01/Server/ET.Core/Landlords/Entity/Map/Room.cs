@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace ETModel
 {
@@ -38,7 +39,10 @@ namespace ETModel
         /// </summary>
         public readonly Gamer[] gamers = new Gamer[3];
         public readonly bool[] isReadys = new bool[3];
-
+        /// <summary>
+        /// 清房间waiting的cts
+        /// </summary>
+        public CancellationTokenSource CancellationTokenSource;
         /// <summary>
         /// 房间中玩家的数量
         /// </summary>

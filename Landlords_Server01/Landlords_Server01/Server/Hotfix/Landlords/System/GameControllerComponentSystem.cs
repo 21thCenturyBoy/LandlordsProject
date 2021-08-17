@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using ETModel;
 
@@ -155,7 +156,7 @@ namespace ETHotfix
             orderController.Init(firstAuthority);
 
             //广播先手抢地主玩家
-            room.Broadcast(new Actor_AuthorityGrabLandlord_Ntt() { UserID = firstAuthority ,IsReload = isReload });
+            room.Broadcast(new Actor_AuthorityGrabLandlord_Ntt() { UserID = firstAuthority, IsReload = isReload });
         }
 
 
@@ -242,8 +243,8 @@ namespace ETHotfix
         }
 
         /// <summary>
-            /// 判断出牌后游戏继续or结束
-            /// </summary>
+        /// 判断出牌后游戏继续or结束
+        /// </summary>
         public static void Continue(this GameControllerComponent self, Gamer lastGamer)
         {
             Room room = self.GetParent<Room>();
@@ -255,11 +256,28 @@ namespace ETHotfix
             {
                 //当前最大出牌者为赢家
                 Identity winnerIdentity = room.GetGamerFromUserID(orderController.Biggest).GetComponent<HandCardsComponent>().AccessIdentity;
-                //List<GamerScore> gamersScore = new List<GamerScore>();
+
+                List<GamerScore> gamersScore = new List<GamerScore>();
 
                 //游戏结束所有玩家摊牌
-                //...
-                //self.GameOver(gamersScore, winnerIdentity);
+                foreach (var gamer in room.gamers)
+                {
+                    //计算玩家积分
+                    gamersScore.Add(new GamerScore()
+                    {
+                        UserID = gamer.UserID,
+                        Score = self.GetGamerScore(gamer, winnerIdentity)
+                    });
+
+                    if (gamer.UserID != lastGamer.UserID)
+                    {
+                        //剩余玩家摊牌
+                        Card[] _gamerCards = gamer.GetComponent<HandCardsComponent>().GetAll();
+                        room.Broadcast(new Actor_GamerPlayCard_Ntt() { UserID = gamer.UserID, Cards = To.RepeatedField(_gamerCards) });
+                    }
+                }
+
+                self.GameOver(gamersScore, winnerIdentity);
             }
             else
             {
@@ -268,6 +286,120 @@ namespace ETHotfix
                 orderController.Turn();
                 room.Broadcast(new Actor_AuthorityPlayCard_Ntt() { UserID = orderController.CurrentAuthority, IsFirst = false });
             }
+        }
+
+        /// <summary>
+        /// 游戏结束
+        /// </summary>
+        /// <param name="self"></param>
+        public static async void GameOver(this GameControllerComponent self, List<GamerScore> gamersScore, Identity winnerIdentity)
+        {
+            Room room = self.GetParent<Room>();
+            Gamer[] gamers = room.gamers;
+
+            //清理所有卡牌
+            self.BackToDeck();
+            room.GetComponent<DeskCardsCacheComponent>().Clear();
+
+            Dictionary<long, long> gamersMoney = new Dictionary<long, long>();
+            foreach (GamerScore gamerScore in gamersScore)
+            {
+                //结算玩家余额
+                Gamer gamer = room.GetGamerFromUserID(gamerScore.UserID);
+                long gamerMoney = await self.StatisticalIntegral(gamer, gamerScore.Score);
+                gamersMoney[gamer.UserID] = gamerMoney;
+            }
+
+            //广播游戏结束消息
+            room.Broadcast(new Actor_Gameover_Ntt()
+            {
+                Winner = (byte)winnerIdentity,
+                BasePointPerMatch = self.BasePointPerMatch,
+                Multiples = self.Multiples,
+                GamersScore = To.RepeatedField(gamersScore)
+            });
+
+            //清理房间玩家
+            LandMatchComponent Match = Game.Scene.GetComponent<LandMatchComponent>();
+            foreach (var _gamer in gamers)
+            {
+                //踢出离线玩家
+                if (_gamer.isOffline)
+                {
+                    Match.Playing.Remove(_gamer.UserID);
+                    _gamer.Dispose();
+                }
+                //踢出余额不足玩家
+                else if (gamersMoney[_gamer.UserID] < self.MinThreshold)
+                {
+                    //...
+                }
+                else
+                {
+                    //修改玩家匹配状态
+                    Match.Playing.Remove(_gamer.UserID);
+                    Match.Waiting.Add(_gamer.UserID, room);
+                }
+            }
+            GameoverRoomWaiting(room).Coroutine();
+        }
+        /// <summary>
+        /// 游戏结束房间等待
+        /// </summary>
+        public static async ETVoid GameoverRoomWaiting(Room room)
+        {
+            //只处理两种情况:1 有玩家选择继续；2 等待两分钟,无玩家继续
+
+            LandMatchComponent Match = Game.Scene.GetComponent<LandMatchComponent>();
+
+            //更改房间状态为空闲房间   
+            Match.GamingLandlordsRooms.Remove(room.Id);
+            Match.FreeLandlordsRooms.Add(room.Id, room);
+
+            //有玩家继续，通过room的cts取消清房waiting,保留房间
+            //玩家继续的handler中调用room.CancellationTokenSource?.Cancel();
+            //等待2分钟，无玩家继续，清除玩家与房间
+            TimerComponent timer = Game.Scene.GetComponent<TimerComponent>();
+            room.CancellationTokenSource = new CancellationTokenSource();
+            await timer.WaitAsync(120000, room.CancellationTokenSource.Token);
+
+            //广播消息给房间内玩家客户端通知房间清除返回大厅界面
+            //...
+
+            room.CancellationTokenSource.Dispose();
+            room.CancellationTokenSource = null;
+            room.ClearRoom();
+        }
+        /// <summary>
+        /// 计算玩家积分
+        /// </summary>
+        public static long GetGamerScore(this GameControllerComponent self, Gamer gamer, Identity winnerIdentity)
+        {
+            HandCardsComponent handCards = gamer.GetComponent<HandCardsComponent>();
+
+            //积分计算公式：全场底分 * 全场倍率 * 身份倍率
+            long integration = self.BasePointPerMatch * self.Multiples * (int)handCards.AccessIdentity;
+            //当玩家不是胜者，结算积分为负
+            if (handCards.AccessIdentity != winnerIdentity)
+                integration = -integration;
+            return integration;
+        }
+
+        /// <summary>
+        /// 结算用户余额保存
+        /// </summary>
+        public static async Task<long> StatisticalIntegral(this GameControllerComponent self, Gamer gamer, long sorce)
+        {
+            DBProxyComponent dbProxy = Game.Scene.GetComponent<DBProxyComponent>();
+
+            //结算用户余额
+            UserInfo userInfo = await dbProxy.Query<UserInfo>(gamer.UserID);
+            userInfo.Money = userInfo.Money + sorce < 0 ? 0 : userInfo.Money + sorce;
+
+            //更新用户信息
+            await dbProxy.Save(userInfo);
+
+            return userInfo.Money;
         }
     }
 }

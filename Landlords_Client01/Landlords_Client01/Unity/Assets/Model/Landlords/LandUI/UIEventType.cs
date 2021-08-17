@@ -17,6 +17,8 @@ namespace ETModel
         public const string LandTip = "LandTip";
         //游戏交互
         public const string LandInteraction = "LandInteraction";
+        //游戏结束
+        public const string LandEnd = "LandEnd";
     }
 
     public static partial class UIEventType
