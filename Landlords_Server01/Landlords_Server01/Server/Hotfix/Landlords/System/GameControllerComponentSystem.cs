@@ -361,9 +361,18 @@ namespace ETHotfix
             //等待2分钟，无玩家继续，清除玩家与房间
             TimerComponent timer = Game.Scene.GetComponent<TimerComponent>();
             room.CancellationTokenSource = new CancellationTokenSource();
-            await timer.WaitAsync(120000, room.CancellationTokenSource.Token);
+            await timer.WaitAsync(5000, room.CancellationTokenSource.Token);
 
             //广播消息给房间内玩家客户端通知房间清除返回大厅界面
+            foreach (Gamer gamer in room.gamers)
+            {
+                //如果玩家不存在
+                if (gamer == null) continue;
+                //向客户端User发送Actor消息
+                ActorMessageSenderComponent actorProxyComponent = Game.Scene.GetComponent<ActorMessageSenderComponent>();
+                ActorMessageSender actorProxy = actorProxyComponent.Get(gamer.CActorID);
+                actorProxy.Send(new Actor_GamerClearRoom_Ntt());
+            }
             //...
 
             room.CancellationTokenSource.Dispose();

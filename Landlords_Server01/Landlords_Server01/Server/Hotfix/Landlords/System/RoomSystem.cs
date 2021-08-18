@@ -175,14 +175,16 @@ namespace ETHotfix
         }
         public static void ClearRoom(this Room self)
         {
+            Log.Info($"Room ID:{self.Id}已被清理...");
             LandMatchComponent Match = Game.Scene.GetComponent<LandMatchComponent>();
             for (int i = 0; i < self.gamers.Length; i++)
             {
                 Gamer gamer = self.gamers[i];
-                Match.Playing.Remove(gamer.UserID);
+                Match.Playing.Remove(gamer.UserID);//正在游戏玩家
+                Match.Waiting.Remove(gamer.UserID);//等待玩家
                 gamer.Dispose();
-                self.Dispose();
             }
+            self.Dispose();
         }
     }
 }

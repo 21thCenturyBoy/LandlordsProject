@@ -21,10 +21,7 @@ namespace ETModel
     {
 
         public Text prompt;
-        //邮箱
         public Button sureBtn;
-        //性别
-        public InputField sex;
 
         public void Awake()
         {

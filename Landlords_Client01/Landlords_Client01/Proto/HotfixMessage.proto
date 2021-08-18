@@ -1,5 +1,11 @@
 syntax = "proto3";
 package ETModel;
+//清理房间
+message Actor_GamerClearRoom_Ntt // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
 message Actor_GamerContinue_Ntt // IActorMessage
 {
 	int32 RpcId = 90;

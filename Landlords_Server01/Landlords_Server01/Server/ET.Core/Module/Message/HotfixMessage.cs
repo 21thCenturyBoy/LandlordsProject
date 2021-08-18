@@ -9,6 +9,74 @@ using scg = global::System.Collections.Generic;
 namespace ETModel {
 
   #region Messages
+  /// <summary>
+  ///清理房间
+  /// </summary>
+  public partial class Actor_GamerClearRoom_Ntt : pb::IMessage {
+    private static readonly pb::MessageParser<Actor_GamerClearRoom_Ntt> _parser = new pb::MessageParser<Actor_GamerClearRoom_Ntt>(() => (Actor_GamerClearRoom_Ntt)MessagePool.Instance.Fetch(typeof(Actor_GamerClearRoom_Ntt)));
+    public static pb::MessageParser<Actor_GamerClearRoom_Ntt> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private long actorId_;
+    public long ActorId {
+      get { return actorId_; }
+      set {
+        actorId_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (ActorId != 0L) {
+        output.WriteRawTag(232, 5);
+        output.WriteInt64(ActorId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (ActorId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(ActorId);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      rpcId_ = 0;
+      actorId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 744: {
+            ActorId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public partial class Actor_GamerContinue_Ntt : pb::IMessage {
     private static readonly pb::MessageParser<Actor_GamerContinue_Ntt> _parser = new pb::MessageParser<Actor_GamerContinue_Ntt>(() => (Actor_GamerContinue_Ntt)MessagePool.Instance.Fetch(typeof(Actor_GamerContinue_Ntt)));
     public static pb::MessageParser<Actor_GamerContinue_Ntt> Parser { get { return _parser; } }

@@ -34,12 +34,7 @@ namespace ETModel
         {
             get
             {
-                if (interaction == null)
-                {
-                    UI uiRoom = this.GetParent<UI>();
-                    UI uiInteraction = LandInteractionFactory.Create(LandUIType.LandInteraction, uiRoom);
-                    interaction = uiInteraction.GetComponent<LandInteractionComponent>();
-                }
+                if (interaction == null) InitInteraction();
                 return interaction;
             }
         }
@@ -70,6 +65,14 @@ namespace ETModel
             Gamer gamer = ETModel.ComponentFactory.Create<Gamer, long>(GamerComponent.Instance.MyUser.UserID);
             AddGamer(gamer, 1);
             LocalGamer = gamer;
+            InitInteraction();
+        }
+
+        private void InitInteraction()
+        {
+            UI uiRoom = this.GetParent<UI>();
+            UI uiInteraction = LandInteractionFactory.Create(LandUIType.LandInteraction, uiRoom);
+            interaction = uiInteraction.GetComponent<LandInteractionComponent>();
         }
 
         public void AddGamer(Gamer gamer, int index)
