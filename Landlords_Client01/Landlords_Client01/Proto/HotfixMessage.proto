@@ -6,10 +6,18 @@ message Actor_GamerClearRoom_Ntt // IActorMessage
 	int32 RpcId = 90;
 	int64 ActorId = 93;
 }
-message Actor_GamerContinue_Ntt // IActorMessage
+//游戏结束并请求继续游戏
+message Actor_GamerContinue_Req // IActorRequest
 {
 	int32 RpcId = 90;
 	int64 ActorId = 93;
+}
+//游戏结束并请求继续游戏
+message Actor_GamerContinue_Back // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
 }
 message GamerScore
 {

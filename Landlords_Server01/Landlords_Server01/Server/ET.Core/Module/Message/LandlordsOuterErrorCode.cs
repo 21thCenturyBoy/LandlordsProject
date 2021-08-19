@@ -18,5 +18,7 @@
         public const int ERR_UserMoneyLessError = 210003;
         public const int ERR_PlayCardError = 210004;
         public const int ERR_LoginError = 210005;
+
+        public const int ERR_GameContinueError = 210006;//游戏继续错误
     }
 }

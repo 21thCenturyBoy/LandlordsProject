@@ -46,6 +46,19 @@ namespace ETHotfix
                 Match.Playing.Add(gamer.UserID, self);
             }
 
+            if (!self.IsInited) Init(self);
+            
+            //开始游戏
+            self.GetComponent<GameControllerComponent>().StartGame();
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="self"></param>
+        public static void Init(this Room self)
+        {
+            self.IsInited = true;
             //添加开始斗地主游戏需要的组件
             //牌库组件
             self.AddComponent<DeckComponent>();
@@ -56,11 +69,7 @@ namespace ETHotfix
             self.AddComponent<DeskCardsCacheComponent>();
             //出牌控制组件
             self.AddComponent<OrderControllerComponent>();
-
-            //开始游戏
-            self.GetComponent<GameControllerComponent>().StartGame();
         }
-
         /// <summary>
         /// 添加玩家 没有空位时提示错误
         /// </summary>

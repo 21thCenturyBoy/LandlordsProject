@@ -296,7 +296,11 @@ namespace ETHotfix
         {
             Room room = self.GetParent<Room>();
             Gamer[] gamers = room.gamers;
-
+            //清理房间准备
+            for (int i = 0; i < room.isReadys.Length; i++)
+            {
+                room.isReadys[i] = false;//重置准备
+            }
             //清理所有卡牌
             self.BackToDeck();
             room.GetComponent<DeskCardsCacheComponent>().Clear();
@@ -341,6 +345,7 @@ namespace ETHotfix
                     Match.Waiting.Add(_gamer.UserID, room);
                 }
             }
+
             GameoverRoomWaiting(room).Coroutine();
         }
         /// <summary>
@@ -361,7 +366,7 @@ namespace ETHotfix
             //等待2分钟，无玩家继续，清除玩家与房间
             TimerComponent timer = Game.Scene.GetComponent<TimerComponent>();
             room.CancellationTokenSource = new CancellationTokenSource();
-            await timer.WaitAsync(5000, room.CancellationTokenSource.Token);
+            await timer.WaitAsync(120000, room.CancellationTokenSource.Token);
 
             //广播消息给房间内玩家客户端通知房间清除返回大厅界面
             foreach (Gamer gamer in room.gamers)

@@ -97,7 +97,7 @@ namespace ETModel
         /// <summary>
         /// 继续游戏
         /// </summary>
-        private void OnContinue()
+        private async void OnContinue()
         {
             UI entity = this.GetParent<UI>();
             UI parent = (UI)entity.Parent;
@@ -105,7 +105,14 @@ namespace ETModel
             parent.Remove(entity.Name);
 
             //发消息到服务器继续游戏
-            SessionComponent.Instance.Session.Send(new Actor_GamerContinue_Ntt());
+            Actor_GamerContinue_Req request = new Actor_GamerContinue_Req();
+            Actor_GamerContinue_Back response = (Actor_GamerContinue_Back)await SessionComponent.Instance.Session.Call(request);
+
+            if (response.Error == ErrorCode.ERR_GameContinueError)
+            {
+                Log.Error("游戏继续失败，返回大厅！");
+                return;
+            }
         }
     }
 }
