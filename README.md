@@ -20,11 +20,11 @@ Unity版本2018.4.24f1+VS2019
 
 1、打开Web资源服务器
 
-![UnityTool1](PIC\UnityTool1.PNG)
+![UnityTool1](PIC/UnityTool1.PNG)
 
 2、打开打包工具，配置如下，打包：
 
-![打包](PIC\打包.PNG)
+![打包](PIC/打包.PNG)
 
 ------
 
@@ -38,20 +38,20 @@ Unity版本2018.4.24f1+VS2019
 
 登录：
 
-![登录UI](PIC\登录UI.PNG)
+![登录UI](PIC/登录UI.PNG)
 
 顶号登录：
 
-![顶号导致断线](PIC\顶号导致断线.PNG)
+![顶号导致断线](PIC/顶号导致断线.PNG)
 
 房间抢地主：
 
-![房间抢地主](PIC\房间抢地主.PNG)
+![房间抢地主](PIC/房间抢地主.PNG)
 
 结算：
 
-![结算](PIC\结算.PNG)
+![结算](PIC/结算.PNG)
 
 总体效果：
 
-![总](PIC\总.PNG)
+![总](PIC/总.PNG)
