@@ -477,3 +477,13 @@ Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Dr
 Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Driver.GridFS/obj/Debug/
 
 Landlords_Client01/Landlords_Client01/WebRes/PC/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Bson/obj/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Driver/obj/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Driver.Core/obj/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/MongoDBDriver/MongoDB.Driver.GridFS/obj/
+
+Landlords_Server01/Landlords_Server01/Server/ThirdParty/Google.Protobuf/obj/
